@@ -15,36 +15,37 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
     <style>
         :root {
-            --bg-color: #0a0e17;
-            --sidebar-bg: #060a12;
-            --card-bg: #111a28;
-            --inner-bg: #1a2538;
-            --text-main: #e8edf5;
-            --text-muted: #8a9bb5;
-            --primary: #60b0f4;
-            --primary-glow: rgba(96, 176, 244, 0.15);
-            --accent: #f4726b;
-            --gold: #fbbf24;
-            --border-color: #1a2a40;
+            --bg-color: #f5f0e8;
+            --sidebar-bg: #2c2418;
+            --card-bg: #fcf9f5;
+            --inner-bg: #f0ebe3;
+            --text-main: #2c2418;
+            --text-muted: #6b5f50;
+            --primary: #7a5a4b;
+            --primary-glow: rgba(122, 90, 75, 0.12);
+            --accent: #b85c4a;
+            --gold: #b8860b;
+            --border-color: #d6cec4;
             --sidebar-width: 300px;
             --reader-height: 72px;
-            --math-color: #fcd34d;
+            --math-color: #b8860b;
+            --code-bg: #f0ebe3;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Georgia", "Segoe UI", Roboto, serif;
+            font-family: "Georgia", "Palatino Linotype", "Book Antiqua", "Songti SC", serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
             min-height: 100vh;
             padding-bottom: var(--reader-height);
-            line-height: 1.7;
+            line-height: 1.8;
         }
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
             background-color: var(--sidebar-bg);
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid #3d3226;
             position: fixed;
             top: 0; left: 0;
             overflow-y: auto;
@@ -54,18 +55,17 @@
         .sidebar h1 {
             font-size: 1.2rem;
             font-weight: 800;
-            background: linear-gradient(to right, var(--primary), #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #f0e6d8;
             margin-bottom: 2rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            letter-spacing: 0.05em;
         }
-        .sidebar h1 small { font-size: 0.6rem; opacity: 0.6; -webkit-text-fill-color: var(--text-muted); }
-        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+        .sidebar h1 small { font-size: 0.6rem; opacity: 0.5; color: #a09080; font-weight: 400; }
+        .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
         .sidebar-menu a {
-            color: var(--text-muted);
+            color: #b0a090;
             text-decoration: none;
             font-size: 0.85rem;
             padding: 0.6rem 1rem;
@@ -78,12 +78,12 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            color: var(--primary);
-            background-color: var(--card-bg);
-            border-left-color: var(--primary);
+            color: #f0e6d8;
+            background-color: rgba(255,255,255,0.06);
+            border-left-color: #b8860b;
             padding-left: 1.25rem;
         }
-        .sidebar-menu a .chapter-num { color: var(--gold); font-size: 0.7rem; opacity: 0.7; }
+        .sidebar-menu a .chapter-num { color: #b8860b; font-size: 0.7rem; opacity: 0.6; }
         .main-content {
             margin-left: var(--sidebar-width);
             padding: 3rem 4rem 6rem 4rem;
@@ -92,54 +92,53 @@
         }
         .book-header {
             margin-bottom: 4rem;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 2.5rem;
             text-align: center;
         }
         .book-header h1 {
             font-size: 3.2rem;
             font-weight: 900;
-            background: linear-gradient(to right, var(--primary), #a78bfa, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--text-main);
             margin-bottom: 0.5rem;
             letter-spacing: -0.02em;
         }
+        .book-header h1 span { color: var(--accent); }
         .book-header .subtitle {
             color: var(--text-muted);
             font-size: 1.1rem;
             font-weight: 300;
             font-style: italic;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.2em;
         }
         .book-header .tagline {
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: 0.5rem;
-            opacity: 0.7;
+            opacity: 0.6;
             letter-spacing: 0.1em;
         }
         .chapter-card {
-            background: linear-gradient(145deg, var(--card-bg), #0d1624);
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 3rem 3.5rem;
             margin-bottom: 4rem;
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.5);
-            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(44, 36, 24, 0.06);
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
         .chapter-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 3px;
-            background: linear-gradient(to right, var(--primary), #a78bfa, var(--accent));
+            background: linear-gradient(to right, var(--primary), var(--gold), var(--accent));
             opacity: 0.3;
+            border-radius: 16px 16px 0 0;
         }
         .chapter-card.active-reading {
-            box-shadow: 0 0 0 2px var(--primary), 0 20px 50px -10px var(--primary-glow);
+            box-shadow: 0 0 0 2px var(--gold), 0 8px 30px rgba(184, 134, 11, 0.1);
             transform: translateY(-2px);
         }
         .chapter-meta {
@@ -158,7 +157,7 @@
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
-            color: #fff;
+            color: var(--text-main);
             line-height: 1.3;
         }
         .chapter-title .highlight { color: var(--gold); }
@@ -169,7 +168,7 @@
             border-left: 3px solid var(--gold);
             padding-left: 1.5rem;
             margin: 1.5rem 0 2rem 0;
-            opacity: 0.85;
+            opacity: 0.8;
             line-height: 1.6;
         }
         .chapter-epigraph .source {
@@ -182,7 +181,7 @@
         }
         .chapter-epigraph .source i { margin-right: 0.3rem; }
         .story-block {
-            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3), rgba(15, 23, 42, 0.5));
+            background: #f5f0e8;
             border-left: 4px solid var(--primary);
             padding: 1.5rem 2rem;
             border-radius: 0 12px 12px 0;
@@ -197,7 +196,7 @@
             top: 1rem;
             left: -1.5rem;
             background-color: var(--primary);
-            color: #000;
+            color: #fff;
             width: 2.2rem;
             height: 2.2rem;
             border-radius: 50%;
@@ -205,13 +204,13 @@
             align-items: center;
             justify-content: center;
             font-size: 0.8rem;
-            box-shadow: 0 0 20px var(--primary-glow);
+            box-shadow: 0 2px 12px rgba(122, 90, 75, 0.2);
         }
         .story-block.stella::before {
-            background-color: #a78bfa;
+            background-color: #8a6e5b;
             content: "\f4fc";
         }
-        .story-block.stella { border-left-color: #a78bfa; }
+        .story-block.stella { border-left-color: #8a6e5b; }
         .story-block .character-name {
             font-weight: 700;
             font-size: 1rem;
@@ -223,31 +222,31 @@
         }
         .story-block .character-name .title-tag {
             font-size: 0.6rem;
-            background: rgba(255,255,255,0.06);
+            background: rgba(122, 90, 75, 0.1);
             padding: 0.1rem 0.6rem;
             border-radius: 20px;
             color: var(--text-muted);
             font-weight: 400;
         }
-        .stella .character-name { color: #a78bfa; }
+        .stella .character-name { color: #8a6e5b; }
         .story-block p { margin-bottom: 0; }
         p {
             font-size: 1.05rem;
             line-height: 1.9;
-            color: #dce3ed;
+            color: var(--text-main);
             margin-bottom: 1.2rem;
             text-align: justify;
         }
         .narrative-highlight {
-            background: linear-gradient(to right, rgba(251, 191, 36, 0.08), transparent);
-            padding: 0.2rem 0.5rem;
+            background: linear-gradient(to right, rgba(184, 134, 11, 0.08), transparent);
+            padding: 0.1rem 0.4rem;
             border-radius: 4px;
         }
         h3 {
             font-size: 1.3rem;
             font-weight: 700;
             margin: 2.5rem 0 1rem 0;
-            color: #fff;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -255,14 +254,14 @@
         h3 .lesson-tag {
             font-size: 0.6rem;
             background: var(--gold);
-            color: #000;
+            color: #fff;
             padding: 0.15rem 0.7rem;
             border-radius: 20px;
             font-weight: 700;
             letter-spacing: 0.05em;
         }
         .math-block {
-            background: rgba(251, 191, 36, 0.05);
+            background: rgba(184, 134, 11, 0.05);
             border-left: 3px solid var(--math-color);
             padding: 1.2rem 2rem;
             margin: 1.5rem 0;
@@ -282,12 +281,12 @@
         .math-block mjx-container { opacity: 0; transition: opacity 0.3s ease; }
         .math-block mjx-container[jax="SVG"][display="true"] { opacity: 1; }
         .math-block mjx-container[display="true"] { opacity: 1; }
-        .math-fallback { display: none; color: #fcd34d; font-family: "Fira Code", monospace; font-size: 0.9rem; padding: 0.5rem 0; }
+        .math-fallback { display: none; color: var(--math-color); font-family: "Fira Code", monospace; font-size: 0.9rem; padding: 0.5rem 0; }
         .math-block:not(:has(mjx-container)) .math-fallback { display: block; }
         .math-block:has(mjx-container) .math-fallback { display: none !important; }
         .concept-box {
-            background: linear-gradient(135deg, rgba(30, 58, 95, 0.2), rgba(15, 23, 42, 0.4));
-            border: 1px solid rgba(251, 191, 36, 0.15);
+            background: #f5f0e8;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem 2rem;
             margin: 1.8rem 0;
@@ -299,12 +298,12 @@
             display: inline-block;
             margin-right: 0.5rem;
         }
-        .concept-box .concept-def { color: #dce3ed; line-height: 1.8; }
+        .concept-box .concept-def { color: var(--text-main); line-height: 1.8; }
         .concept-box .concept-example {
-            color: #8a9bb5;
+            color: var(--text-muted);
             font-size: 0.95rem;
             margin-top: 0.5rem;
-            border-top: 1px dashed rgba(255,255,255,0.06);
+            border-top: 1px solid var(--border-color);
             padding-top: 0.5rem;
         }
         .figure-container {
@@ -312,7 +311,7 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            background: #05070c;
+            background: #f5f0e8;
             text-align: center;
         }
         .figure-container img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
@@ -321,12 +320,12 @@
             color: var(--text-muted);
             font-size: 0.85rem;
             border-top: 1px solid var(--border-color);
-            background: rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.3);
             font-style: italic;
         }
         .blackboard {
-            background: rgba(5, 7, 12, 0.7);
-            border: 2px dashed rgba(251, 191, 36, 0.2);
+            background: #f5f0e8;
+            border: 2px dashed var(--border-color);
             border-radius: 12px;
             padding: 2rem;
             margin: 2.5rem 0;
@@ -343,7 +342,7 @@
         .blackboard li {
             position: relative;
             margin-bottom: 0.6rem;
-            color: #cbd5e1;
+            color: var(--text-main);
             font-size: 0.98rem;
             padding-left: 1.5rem;
         }
@@ -356,19 +355,19 @@
             top: 0.3rem;
         }
         pre {
-            background: #05070c;
+            background: var(--code-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem;
             overflow-x: auto;
             margin: 1.5rem 0;
         }
-        code { font-family: "Fira Code", Consolas, monospace; font-size: 0.9rem; color: #60b0f4; }
+        code { font-family: "Fira Code", Consolas, monospace; font-size: 0.9rem; color: #7a5a4b; }
         .code-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #0d1a2a;
+            background: #e8e0d6;
             padding: 0.4rem 1.5rem;
             border-radius: 12px 12px 0 0;
             font-size: 0.7rem;
@@ -385,50 +384,49 @@
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
-            background: rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.3);
             border-radius: 8px;
             overflow: hidden;
         }
         th, td { padding: 0.8rem 1.2rem; text-align: left; border-bottom: 1px solid var(--border-color); }
-        th { background: rgba(255,255,255,0.03); color: var(--primary); font-weight: 600; }
-        tr:hover { background: rgba(255,255,255,0.02); }
+        th { background: rgba(122, 90, 75, 0.06); color: var(--primary); font-weight: 600; }
+        tr:hover { background: rgba(255,255,255,0.3); }
         .reader-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--reader-height);
-            background: rgba(6, 10, 18, 0.95); backdrop-filter: blur(16px);
-            border-top: 1px solid var(--border-color);
+            background: rgba(44, 36, 24, 0.95); backdrop-filter: blur(16px);
+            border-top: 1px solid #3d3226;
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 2rem; z-index: 999; gap: 1rem; flex-wrap: nowrap;
-            box-shadow: 0 -8px 30px rgba(0,0,0,0.6);
+            box-shadow: 0 -4px 30px rgba(0,0,0,0.15);
         }
-        .reader-bar .chapter-indicator { font-size: 0.8rem; color: var(--text-muted); min-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .reader-bar .chapter-indicator strong { color: var(--primary); font-weight: 600; }
+        .reader-bar .chapter-indicator { font-size: 0.8rem; color: #b0a090; min-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .reader-bar .chapter-indicator strong { color: #f0e6d8; font-weight: 600; }
         .reader-controls { display: flex; align-items: center; gap: 0.6rem; flex-wrap: nowrap; }
         .reader-controls button {
-            background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
+            background: rgba(255,255,255,0.06); border: 1px solid #3d3226; color: #b0a090;
             width: 40px; height: 40px; border-radius: 30px; font-size: 1rem;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s ease; cursor: pointer; background: var(--card-bg);
+            transition: all 0.2s ease; cursor: pointer;
         }
-        .reader-controls button:hover { border-color: var(--primary); color: var(--primary); background: rgba(96, 176, 244, 0.08); transform: scale(1.03); }
-        .reader-controls button.primary-btn { background: var(--primary); border-color: var(--primary); color: #000; width: 48px; }
-        .reader-controls button.primary-btn:hover { background: #7ecfff; border-color: #7ecfff; }
+        .reader-controls button:hover { border-color: #b8860b; color: #f0e6d8; background: rgba(184, 134, 11, 0.12); transform: scale(1.03); }
+        .reader-controls button.primary-btn { background: #b8860b; border-color: #b8860b; color: #fff; width: 48px; }
+        .reader-controls button.primary-btn:hover { background: #d4a017; border-color: #d4a017; }
         .reader-progress { flex: 1; min-width: 80px; max-width: 200px; display: flex; align-items: center; gap: 0.5rem; }
         .reader-progress input[type="range"] {
-            width: 100%; height: 3px; -webkit-appearance: none; background: var(--border-color); border-radius: 4px; outline: none;
+            width: 100%; height: 3px; -webkit-appearance: none; background: #3d3226; border-radius: 4px; outline: none;
         }
         .reader-progress input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); cursor: pointer;
-            box-shadow: 0 0 12px var(--primary-glow);
+            -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #b8860b; cursor: pointer;
         }
-        .reader-progress span { font-size: 0.75rem; color: var(--text-muted); min-width: 38px; text-align: right; }
-        .reader-speed { display: flex; align-items: center; gap: 0.3rem; color: var(--text-muted); font-size: 0.75rem; }
+        .reader-progress span { font-size: 0.75rem; color: #b0a090; min-width: 38px; text-align: right; }
+        .reader-speed { display: flex; align-items: center; gap: 0.3rem; color: #b0a090; font-size: 0.75rem; }
         .reader-speed select {
-            background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main);
+            background: rgba(255,255,255,0.06); border: 1px solid #3d3226; color: #f0e6d8;
             padding: 0.2rem 0.4rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; outline: none;
         }
         @media (max-width: 1200px) {
             body { flex-direction: column; padding-bottom: calc(var(--reader-height) + 10px); }
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border-color); padding: 1rem; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #3d3226; padding: 1rem; }
             .main-content { margin-left: 0; width: 100%; padding: 2rem 1.5rem 5rem 1.5rem; }
             .chapter-card { padding: 2rem 1.5rem; }
             .reader-bar { flex-wrap: wrap; height: auto; padding: 0.5rem 1rem; gap: 0.3rem; }
@@ -471,9 +469,9 @@
     <main class="main-content">
         <!-- ===== 书籍标题 ===== -->
         <header class="book-header" id="prologue">
-            <h1>统计学的救赎</h1>
+            <h1>统计学的<span>救赎</span></h1>
             <div class="subtitle">—— 一部关于数据、谎言与真相的工程师小说</div>
-            <div class="tagline">✦ 打通微服务 · 监控日志 · 现代统计学: 统计学不是象牙塔里的数学游戏，而是你每天监控系统、分析日志、做A/B测试、优化性能时，真正能帮你做科学决策的"武器"。 ✦</div>
+            <div class="tagline">✦ 打通微服务 · 监控日志 · 现代统计学: 统计学不是象牙塔里的数学游戏，而是你每天监控系统、分析日志、做A/B测试、优化性能时，真正能帮你做科学决策的"武器"。✦</div>
         </header>
 
         <!-- ===== 楔子 ===== -->
@@ -674,7 +672,7 @@ barplot(qps_per_second, col = "darkseagreen",
             </div>
 
             <div class="figure-container">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%230a0e17'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23fbbf24' font-size='20' font-weight='bold' font-family='sans-serif'%3E中央极限定理 · 宇宙最美的定理%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23111a28' stroke='%231a2a40' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%238a9bb5' font-size='14'%3E总体 · 任何形状%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23f4726b' font-size='13'%3E(右偏态)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23f4726b' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23f4726b' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%238a9bb5' font-size='14'%3E重复抽样%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%238a9bb5' font-size='12'%3E样本容量 n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%23607090' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23111a28' stroke='%231a2a40' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%238a9bb5' font-size='14'%3E样本均值的分布%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%2360b0f4' font-size='13'%3E(近似正态)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%2360b0f4' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%2360b0f4' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%238a9bb5' font-size='13'%3E无论总体是什么形状，样本均值都会收敛到正态分布！%3C/text%3E%3C/svg%3E"
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23f5f0e8'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23b8860b' font-size='20' font-weight='bold' font-family='sans-serif'%3E中央极限定理 · 宇宙最美的定理%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E总体 · 任何形状%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23b85c4a' font-size='13'%3E(右偏态)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23b85c4a' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23b85c4a' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E重复抽样%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%236b5f50' font-size='12'%3E样本容量 n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%236b5f50' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E样本均值的分布%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%237a5a4b' font-size='13'%3E(近似正态)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%236b5f50' font-size='13'%3E无论总体是什么形状，样本均值都会收敛到正态分布！%3C/text%3E%3C/svg%3E"
                      alt="中央极限定理示意图" />
                 <div class="fig-caption">图：中央极限定理 —— <span class="narrative-highlight">无论总体多么扭曲，样本均值总会趋于正态</span></div>
             </div>
@@ -763,8 +761,8 @@ cat(sprintf("95%% 置信区间: [%.2f, %.2f] ms\n", ci_lower, ci_upper))
                     <tr><th></th><th>拒绝 \(H_0\)</th><th>接受 \(H_0\)</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><b>\(H_0\) 属实</b></td><td style="color:var(--accent);"><b>第一类错误 (假阳性)</b></td><td style="color:#22c55e;">✅ 正确</td></tr>
-                    <tr><td><b>\(H_1\) 属实</b></td><td style="color:#22c55e;">✅ 正确</td><td style="color:var(--accent);"><b>第二类错误 (假阴性)</b></td></tr>
+                    <tr><td><b>\(H_0\) 属实</b></td><td style="color:var(--accent);"><b>第一类错误 (假阳性)</b></td><td style="color:#2a7a4a;">✅ 正确</td></tr>
+                    <tr><td><b>\(H_1\) 属实</b></td><td style="color:#2a7a4a;">✅ 正确</td><td style="color:var(--accent);"><b>第二类错误 (假阴性)</b></td></tr>
                 </tbody>
             </table>
 
@@ -1061,7 +1059,7 @@ plot(model)</code></pre>
         </section>
 
         <!-- ===== 尾声 ===== -->
-        <section id="epilogue" class="chapter-card" style="background: linear-gradient(145deg, #0f1a2e, #0a0e17); border-color: #2a3a55;">
+        <section id="epilogue" class="chapter-card" style="background: #f8f4ee; border-color: #d6cec4;">
             <span class="chapter-meta"><span class="chapter-icon">🌅</span> 尾声</span>
             <h2 class="chapter-title">新的<span class="highlight">黎明</span></h2>
 
