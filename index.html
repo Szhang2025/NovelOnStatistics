@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《统计学的救赎》— 一部数据科学小说 · 全本语音阅读</title>
+    <title>The Redemption of Statistics — A Data Science Novel · Full Audio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         window.MathJax = {
@@ -22,8 +22,6 @@
             --text-main: #2c2418;
             --text-muted: #6b5f50;
             --primary: #7a5a4b;
-            --primary-glow: rgba(122, 90, 75, 0.12);
-            --accent: #b85c4a;
             --gold: #b8860b;
             --border-color: #d6cec4;
             --sidebar-width: 300px;
@@ -90,6 +88,7 @@
             width: calc(100% - var(--sidebar-width));
             max-width: 1000px;
         }
+
         .book-header {
             margin-bottom: 4rem;
             border-bottom: 2px solid var(--border-color);
@@ -103,7 +102,7 @@
             margin-bottom: 0.5rem;
             letter-spacing: -0.02em;
         }
-        .book-header h1 span { color: var(--accent); }
+        .book-header h1 span { color: #b85c4a; }
         .book-header .subtitle {
             color: var(--text-muted);
             font-size: 1.1rem;
@@ -118,6 +117,7 @@
             opacity: 0.6;
             letter-spacing: 0.1em;
         }
+
         .chapter-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -133,7 +133,7 @@
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--gold), var(--accent));
+            background: linear-gradient(to right, var(--primary), var(--gold), #b85c4a);
             opacity: 0.3;
             border-radius: 16px 16px 0 0;
         }
@@ -141,6 +141,7 @@
             box-shadow: 0 0 0 2px var(--gold), 0 8px 30px rgba(184, 134, 11, 0.1);
             transform: translateY(-2px);
         }
+
         .chapter-meta {
             color: var(--primary);
             font-size: 0.75rem;
@@ -151,6 +152,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            flex-wrap: wrap;
         }
         .chapter-meta .chapter-icon { font-size: 1rem; }
         .chapter-title {
@@ -161,6 +163,54 @@
             line-height: 1.3;
         }
         .chapter-title .highlight { color: var(--gold); }
+
+        /* Chapter language toggle buttons */
+        .chapter-lang-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0 1.5rem 0;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .chapter-lang-toggle button {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: -apple-system, sans-serif;
+        }
+        .chapter-lang-toggle button:hover {
+            background: rgba(122, 90, 75, 0.08);
+        }
+        .chapter-lang-toggle button.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .chapter-lang-toggle button .badge {
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+        .chapter-lang-toggle button.active .badge { opacity: 1; }
+
+        /* Language content - default: English visible, Chinese hidden */
+        .lang-zh { display: none; }
+        .lang-en { display: block; }
+        .chapter-card.lang-zh-active .lang-zh { display: block; }
+        .chapter-card.lang-zh-active .lang-en { display: none; }
+        .chapter-card.lang-en-active .lang-zh { display: none; }
+        .chapter-card.lang-en-active .lang-en { display: block; }
+
+        /* Default for all chapters: English */
+        .chapter-card { --default-lang: en; }
+        .chapter-card .lang-zh { display: none; }
+        .chapter-card .lang-en { display: block; }
+
         .chapter-epigraph {
             color: var(--text-muted);
             font-style: italic;
@@ -180,6 +230,7 @@
             letter-spacing: 0.05em;
         }
         .chapter-epigraph .source i { margin-right: 0.3rem; }
+
         .story-block {
             background: #f5f0e8;
             border-left: 4px solid var(--primary);
@@ -391,6 +442,7 @@
         th, td { padding: 0.8rem 1.2rem; text-align: left; border-bottom: 1px solid var(--border-color); }
         th { background: rgba(122, 90, 75, 0.06); color: var(--primary); font-weight: 600; }
         tr:hover { background: rgba(255,255,255,0.3); }
+
         .reader-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; height: var(--reader-height);
             background: rgba(44, 36, 24, 0.95); backdrop-filter: blur(16px);
@@ -424,6 +476,7 @@
             background: rgba(255,255,255,0.06); border: 1px solid #3d3226; color: #f0e6d8;
             padding: 0.2rem 0.4rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; outline: none;
         }
+
         @media (max-width: 1200px) {
             body { flex-direction: column; padding-bottom: calc(var(--reader-height) + 10px); }
             .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #3d3226; padding: 1rem; }
@@ -444,117 +497,193 @@
             .reader-controls button { width: 30px; height: 30px; font-size: 0.7rem; }
             .reader-controls button.primary-btn { width: 36px; }
             .sidebar h1 { font-size: 1rem; }
+            .chapter-lang-toggle button { padding: 0.2rem 0.8rem; font-size: 0.65rem; }
         }
     </style>
 </head>
 <body>
 
     <aside class="sidebar">
-        <h1>📖 统计学的救赎 <small>· 一部数据科学小说</small></h1>
+        <h1>📖 The Redemption of Statistics <small>· A Data Science Novel</small></h1>
         <ul class="sidebar-menu">
-            <li><a href="#prologue" class="active"><span class="chapter-num">00</span> 楔子 · 深夜的报警</a></li>
-            <li><a href="#ch1"><span class="chapter-num">01</span> 平均值的谎言</a></li>
-            <li><a href="#ch2"><span class="chapter-num">02</span> 流量的秘密语言</a></li>
-            <li><a href="#ch3"><span class="chapter-num">03</span> 从局部看见整体</a></li>
-            <li><a href="#ch4"><span class="chapter-num">04</span> 实验的陷阱</a></li>
-            <li><a href="#ch5"><span class="chapter-num">05</span> 多人的对决</a></li>
-            <li><a href="#ch6"><span class="chapter-num">06</span> 当两个世界碰撞</a></li>
-            <li><a href="#ch7"><span class="chapter-num">07</span> 预见未来的能力</a></li>
-            <li><a href="#ch8"><span class="chapter-num">08</span> 共犯的背叛</a></li>
-            <li><a href="#ch9"><span class="chapter-num">09</span> 灵魂的拷问</a></li>
-            <li><a href="#epilogue"><span class="chapter-num">10</span> 尾声 · 新的黎明</a></li>
+            <li><a href="#prologue" class="active"><span class="chapter-num">00</span> Prologue</a></li>
+            <li><a href="#ch1"><span class="chapter-num">01</span> The Lie of Averages</a></li>
+            <li><a href="#ch2"><span class="chapter-num">02</span> The Secret Language of Traffic</a></li>
+            <li><a href="#ch3"><span class="chapter-num">03</span> Seeing the Whole from the Part</a></li>
+            <li><a href="#ch4"><span class="chapter-num">04</span> The Trap of Experiments</a></li>
+            <li><a href="#ch5"><span class="chapter-num">05</span> The Battle of Many</a></li>
+            <li><a href="#ch6"><span class="chapter-num">06</span> When Two Worlds Collide</a></li>
+            <li><a href="#ch7"><span class="chapter-num">07</span> The Power to See the Future</a></li>
+            <li><a href="#ch8"><span class="chapter-num">08</span> The Betrayal of Accomplices</a></li>
+            <li><a href="#ch9"><span class="chapter-num">09</span> The Interrogation of the Soul</a></li>
+            <li><a href="#epilogue"><span class="chapter-num">10</span> Epilogue</a></li>
         </ul>
     </aside>
 
     <main class="main-content">
-        <!-- ===== 书籍标题 ===== -->
+        <!-- ===== Book Title ===== -->
         <header class="book-header" id="prologue">
-            <h1>统计学的<span>救赎</span></h1>
-            <div class="subtitle">—— 一部关于数据、谎言与真相的工程师小说</div>
-            <div class="tagline">✦ 打通微服务 · 监控日志 · 现代统计学: 统计学不是象牙塔里的数学游戏，而是你每天监控系统、分析日志、做A/B测试、优化性能时，真正能帮你做科学决策的"武器"。✦</div>
+            <h1>The <span>Redemption</span> of Statistics</h1>
+            <div class="subtitle">— A Data Science Novel —</div>
+            <div class="tagline">✦ Bridging microservices, monitoring, logging, and modern statistics ✦</div>
         </header>
 
-        <!-- ===== 楔子 ===== -->
-        <section id="prologue" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🌙</span> 楔子</span>
-            <h2 class="chapter-title">深夜的报警</h2>
-            <div class="chapter-epigraph">
-                “所有模型都是错的，但有些是有用的。”
-                <span class="source"><i class="fa-regular fa-user"></i> 乔治·博克斯 (George Box) — 统计学巨匠</span>
+        <!-- ===== PROLOGUE ===== -->
+        <section id="prologue" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🌙</span> Prologue</span>
+            <h2 class="chapter-title">Midnight Alert</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 后端架构师 · 三年经验</span></span>
-                <p>凌晨两点十七分。手机在床头柜上疯狂震动。</p>
-                <p>林川揉着眼睛抓起手机——Prometheus 报警：支付网关延迟 P99 突破 500ms。他翻身坐起，打开笔记本，屏幕的蓝光映在他疲惫的脸上。</p>
-                <p>“又来了。”他低声说。</p>
-                <p>过去一周，这已经是第三次。每次他都去查大盘，看平均值——平均响应时间 110ms，一切正常。但用户投诉却在持续增长。产品经理在群里@他：“林川，到底什么问题？数据不是很好吗？”</p>
-                <p>他盯着屏幕上那条绿色的平均线，又看了看飘在远方的红色异常点，忽然觉得——<span class="narrative-highlight">他一直在用错误的方式理解这个世界</span>。</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “All models are wrong, but some are useful.”
+                    <span class="source"><i class="fa-regular fa-user"></i> George Box — Statistician</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Backend Architect · 3 years</span></span>
+                    <p>2:17 AM. His phone vibrated violently on the nightstand.</p>
+                    <p>Lin Chuan rubbed his eyes and grabbed it — Prometheus alert: Payment gateway P99 latency exceeded 500ms. He sat up, opened his laptop, and the blue glow of the screen reflected on his tired face.</p>
+                    <p>"Again," he muttered.</p>
+                    <p>This was the third time this week. Each time, he checked the dashboards, looked at the average — 110ms average response time, everything looked normal. But user complaints kept rising. The product manager @ed him in the group chat: "Lin Chuan, what's the problem? The data looks good, doesn't it?"</p>
+                    <p>He stared at the green average line on the screen, then at the red outlier points floating in the distance, and suddenly realized — <span class="narrative-highlight">he had been understanding the world in the wrong way.</span></p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Data Scientist · 10 years</span></span>
+                    <p>The next morning, Lin Chuan met a colleague he'd never seen before — Su Ran, just transferred from the data science team to support the architecture group.</p>
+                    <p>"I heard you stayed up late again last night," Su Ran said, coffee in hand, leaning against his cubicle. "Do you know what your biggest problem is?"</p>
+                    <p>Lin Chuan was taken aback: "Not enough servers?"</p>
+                    <p>"No," Su Ran smiled, "<span class="narrative-highlight">You're held hostage by 'averages'. What you see isn't the truth — it's a lie told by the mean.</span>"</p>
+                </div>
+                <p>Lin Chuan frowned: "How can an average lie? It's math. It's objective."</p>
+                <p>"Math is objective," Su Ran put down her coffee cup, "<span class="narrative-highlight">but you're asking the wrong question</span>. You ask 'What's the average response time?' But you should ask '<span class="narrative-highlight">How many users experienced poor service?</span>' These two questions have completely different answers."</p>
+                <p>Lin Chuan was silent for a few seconds. He remembered that outlier point floating in the distance last night — maybe that was the answer.</p>
+                <p>"Okay," he said, "Teach me."</p>
+                <p>Su Ran smiled slightly: "Let's start from the very basics — <span class="narrative-highlight">Statistics isn't math. It's a way of thinking about the world through data.</span> And our world is full of lies, biases, and hidden truths."</p>
+                <p>Outside the window, the city's morning light was rising. A journey about data, statistics, and redemption had just begun.</p>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 数据科学家 · 十年经验</span></span>
-                <p>第二天早上，林川在办公室遇到了一位他从未见过的同事——苏然，刚从数据科学团队调来支持架构组。</p>
-                <p>“听说你昨晚又熬夜了。”苏然端着咖啡，靠在他的工位旁，“你知道你最大的问题是什么吗？”</p>
-                <p>林川愣了一下：“服务器不够？”</p>
-                <p>“不，”苏然笑了，“<span class="narrative-highlight">你被‘平均值’绑架了。你看到的不是真相，而是平均数撒的谎。</span>”</p>
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “所有模型都是错的，但有些是有用的。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 乔治·博克斯 (George Box) — 统计学巨匠</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 后端架构师 · 三年经验</span></span>
+                    <p>凌晨两点十七分。手机在床头柜上疯狂震动。</p>
+                    <p>林川揉着眼睛抓起手机——Prometheus 报警：支付网关延迟 P99 突破 500ms。他翻身坐起，打开笔记本，屏幕的蓝光映在他疲惫的脸上。</p>
+                    <p>“又来了。”他低声说。</p>
+                    <p>过去一周，这已经是第三次。每次他都去查大盘，看平均值——平均响应时间 110ms，一切正常。但用户投诉却在持续增长。产品经理在群里@他：“林川，到底什么问题？数据不是很好吗？”</p>
+                    <p>他盯着屏幕上那条绿色的平均线，又看了看飘在远方的红色异常点，忽然觉得——<span class="narrative-highlight">他一直在用错误的方式理解这个世界</span>。</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 数据科学家 · 十年经验</span></span>
+                    <p>第二天早上，林川在办公室遇到了一位他从未见过的同事——苏然，刚从数据科学团队调来支持架构组。</p>
+                    <p>“听说你昨晚又熬夜了。”苏然端着咖啡，靠在他的工位旁，“你知道你最大的问题是什么吗？”</p>
+                    <p>林川愣了一下：“服务器不够？”</p>
+                    <p>“不，”苏然笑了，“<span class="narrative-highlight">你被‘平均值’绑架了。你看到的不是真相，而是平均数撒的谎。</span>”</p>
+                </div>
+                <p>林川皱了皱眉：“平均值怎么会撒谎？它是数学，是客观的。”</p>
+                <p>“数学是客观的，”苏然放下咖啡杯，“但<span class="narrative-highlight">你问的问题错了</span>。你问‘平均响应时间是多少’，但你应该问‘<span class="narrative-highlight">有多少用户体验到了糟糕的服务</span>’。这两个问题，答案完全不同。”</p>
+                <p>林川沉默了几秒。他回想起昨晚那个飘在远处的异常点——也许，那就是答案。</p>
+                <p>“好，”他说，“教我。”</p>
+                <p>苏然微微一笑：“那就从最基础的开始——<span class="narrative-highlight">统计学不是数学，它是用数据理解世界的思维方式</span>。而我们的世界，充满了谎言、偏见和隐藏的真相。”</p>
+                <p>窗外，城市的晨光正在升起。一段关于数据、统计与救赎的旅程，就此开始。</p>
             </div>
-
-            <p>林川皱了皱眉：“平均值怎么会撒谎？它是数学，是客观的。”</p>
-            <p>“数学是客观的，”苏然放下咖啡杯，“但<span class="narrative-highlight">你问的问题错了</span>。你问‘平均响应时间是多少’，但你应该问‘<span class="narrative-highlight">有多少用户体验到了糟糕的服务</span>’。这两个问题，答案完全不同。”</p>
-            <p>林川沉默了几秒。他回想起昨晚那个飘在远处的异常点——也许，那就是答案。</p>
-            <p>“好，”他说，“教我。”</p>
-            <p>苏然微微一笑：“那就从最基础的开始——<span class="narrative-highlight">统计学不是数学，它是用数据理解世界的思维方式</span>。而我们的世界，充满了谎言、偏见和隐藏的真相。”</p>
-            <p>窗外，城市的晨光正在升起。一段关于数据、统计与救赎的旅程，就此开始。</p>
         </section>
 
-        <!-- ===== 第一章 ===== -->
-        <section id="ch1" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">📊</span> 第一章</span>
-            <h2 class="chapter-title">平均值的<span class="highlight">谎言</span></h2>
-            <div class="chapter-epigraph">
-                “平均数掩盖了所有个体的痛苦。”
-                <span class="source"><i class="fa-regular fa-user"></i> 约翰·图基 (John Tukey) — 数据可视化先驱，箱线图发明者</span>
+        <!-- ===== CHAPTER 1 ===== -->
+        <section id="ch1" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">📊</span> Chapter 1</span>
+            <h2 class="chapter-title">The <span class="highlight">Lie</span> of Averages</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 困惑的架构师</span></span>
-                <p>“Stella，用户又在群里抱怨支付接口卡顿了。可我看了看 Prometheus 大盘，过去一小时支付网关的平均响应时间只有 110ms 左右，明明很健康啊！为什么大家都在骂？”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “The average hides the pain of every individual.”
+                    <span class="source"><i class="fa-regular fa-user"></i> John Tukey — Data Visualization Pioneer</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Confused Architect</span></span>
+                    <p>"Stella, users are complaining about payment gateway slowness again in the group chat. But I checked the Prometheus dashboard — the average response time over the past hour is only around 110ms. It looks healthy! Why is everyone complaining?"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Calm Mentor</span></span>
+                    <p>"Lin Chuan, imagine this: 99 user requests have a latency of 10ms, but 1 request gets stuck in the background for 10 seconds. What's the average?"</p>
+                    <p>Lin Chuan did the math: "About 109ms."</p>
+                    <p>"Exactly. But for that user stuck for 10 seconds, that's a 100% outage experience. <span class="narrative-highlight">The average averages out 99 people's happiness and 1 person's pain, making you think everyone is happy.</span>"</p>
+                </div>
+                <p>Lin Chuan was stunned. He had never thought about it this way — <span class="narrative-highlight">data isn't a pile of cold numbers, it's the real experience of living people.</span></p>
+                <h3>📌 Lesson 1: Distribution Matters More Than Average <span class="lesson-tag">Core Insight</span></h3>
+                <p>Su Ran drew a curve on the whiteboard with a long tail stretching to the right.</p>
+                <p>"System response times, throughput — these metrics are almost never symmetrical in the real world. Most requests are fast, but there are always some — due to GC, network jitter, lock contention — that are painfully slow. <span class="narrative-highlight">This is called a right-skewed distribution.</span> And the average is precisely the most unreliable metric for such distributions."</p>
+                <div class="blackboard">
+                    <h4>🧠 Statistical Thinking · Three Measures of Central Tendency</h4>
+                    <ul>
+                        <li><b>Mean</b>: The arithmetic average. It's like a judge easily swayed — one extreme value can make it deliver a completely different verdict.</li>
+                        <li><b>Median</b>: The middle value after sorting. It's the true "people's representative" — unaffected by a few extreme cases, telling you <span class="narrative-highlight">what at least 50% of users experience</span>.</li>
+                        <li><b>Mode</b>: The most frequent value. It tells you <span class="narrative-highlight">what most people actually feel</span>.</li>
+                    </ul>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Beginning to Awaken</span></span>
+                    <p>He was silent for a long time, then said: "So, my monitoring for the past three years — I've been looking at a carefully packaged lie?"</p>
+                    <p>Su Ran didn't answer, just nodded gently.</p>
+                    <p>Lin Chuan took a deep breath and opened RStudio. "Alright, starting today, <span class="narrative-highlight">let the data tell me the truth.</span>"</p>
+                </div>
+                <div class="code-header">💻 R in Action · Unmasking the Average</div>
+                <pre><code># Simulate 1000 payment gateway latency data points
+set.seed(42)
+latency <- c(rpois(950, lambda = 80), rpois(50, lambda = 900))
+
+# Look at the gap between mean and median
+mean(latency)      # ~120ms — looks good
+median(latency)    # ~80ms  — this is what most people actually experience
+
+# Boxplot — outliers laid bare
+boxplot(latency, col = "tomato", main = "API Latency: The Truth Hidden in the Boxplot")</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 冷静的导师</span></span>
-                <p>“林川，想象一下：有 99 个用户请求的延迟是 10ms，但有 1 个请求在后台卡了 10 秒钟。平均下来是多少？”</p>
-                <p>林川心算了一下：“约 109ms。”</p>
-                <p>“没错。但对于那个被卡了 10 秒的用户来说，这就是 100% 的宕机体验。<span class="narrative-highlight">平均值把 99 个人的快乐和 1 个人的痛苦平均掉了，让你以为所有人都很幸福。</span>”</p>
-            </div>
-
-            <p>林川愣住了。他从未从这个角度想过——<span class="narrative-highlight">数据不是一堆冷冰冰的数字，而是活生生的人的真实体验</span>。</p>
-
-            <h3>📌 第一课：分布比平均值更重要 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然在白板上画了一条曲线，右端拖着一个长长的尾巴。</p>
-            <p>“系统响应时间、吞吐量——这些数据在现实世界中几乎从来不是对称的。大部分请求都极快，但总有一些请求——因为 GC、网络抖动、锁争用——会慢得离谱。<span class="narrative-highlight">这种分布叫做右偏态分布</span>。而平均值，恰恰是这种分布中最不可靠的指标。”</p>
-
-            <div class="blackboard">
-                <h4>🧠 统计思维 · 三大集中趋势指标</h4>
-                <ul>
-                    <li><b>均值 (Mean)</b>：所有数的算术平均。它就像一个容易被带偏的法官——一个极端值就能让它说出完全相反的判决。</li>
-                    <li><b>中位数 (Median)</b>：排序后位于中间的值。它是真正的“人民代表”——不受少数极端情况影响，告诉你 <span class="narrative-highlight">至少 50% 的用户体验如何</span>。</li>
-                    <li><b>众数 (Mode)</b>：出现最频繁的值。它告诉你 <span class="narrative-highlight">大多数人的真实感受</span>。</li>
-                </ul>
-            </div>
-
-            <p>“所以，”苏然总结道，“<span class="narrative-highlight">当你下次看监控大盘时，不要只看平均值。把中位数、P95、P99 一起挂上去。</span>这些指标会告诉你：你的系统到底是在让大多数人开心，还是在让少数人绝望。”</p>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 开始觉醒</span></span>
-                <p>他沉默了很久，然后说：“所以，我过去三年的监控——都是在看一个精心包装的谎言？”</p>
-                <p>苏然没有回答，只是轻轻点了点头。</p>
-                <p>林川深吸一口气，打开了 RStudio。“好，那就从今天开始，<span class="narrative-highlight">让数据告诉我真相</span>。”</p>
-            </div>
-
-            <div class="code-header">💻 R 实战 · 揭开平均值的面具</div>
-            <pre><code># 模拟 1000 个支付接口延迟数据
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “平均数掩盖了所有个体的痛苦。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 约翰·图基 (John Tukey) — 数据可视化先驱</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 困惑的架构师</span></span>
+                    <p>“Stella，用户又在群里抱怨支付接口卡顿了。可我看了看 Prometheus 大盘，过去一小时支付网关的平均响应时间只有 110ms 左右，明明很健康啊！为什么大家都在骂？”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 冷静的导师</span></span>
+                    <p>“林川，想象一下：有 99 个用户请求的延迟是 10ms，但有 1 个请求在后台卡了 10 秒钟。平均下来是多少？”</p>
+                    <p>林川心算了一下：“约 109ms。”</p>
+                    <p>“没错。但对于那个被卡了 10 秒的用户来说，这就是 100% 的宕机体验。<span class="narrative-highlight">平均值把 99 个人的快乐和 1 个人的痛苦平均掉了，让你以为所有人都很幸福。</span>”</p>
+                </div>
+                <p>林川愣住了。他从未从这个角度想过——<span class="narrative-highlight">数据不是一堆冷冰冰的数字，而是活生生的人的真实体验</span>。</p>
+                <h3>📌 第一课：分布比平均值更重要 <span class="lesson-tag">核心洞察</span></h3>
+                <p>苏然在白板上画了一条曲线，右端拖着一个长长的尾巴。</p>
+                <p>“系统响应时间、吞吐量——这些数据在现实世界中几乎从来不是对称的。大部分请求都极快，但总有一些请求——因为 GC、网络抖动、锁争用——会慢得离谱。<span class="narrative-highlight">这种分布叫做右偏态分布</span>。而平均值，恰恰是这种分布中最不可靠的指标。”</p>
+                <div class="blackboard">
+                    <h4>🧠 统计思维 · 三大集中趋势指标</h4>
+                    <ul>
+                        <li><b>均值 (Mean)</b>：所有数的算术平均。它就像一个容易被带偏的法官——一个极端值就能让它说出完全相反的判决。</li>
+                        <li><b>中位数 (Median)</b>：排序后位于中间的值。它是真正的“人民代表”——不受少数极端情况影响，告诉你 <span class="narrative-highlight">至少 50% 的用户体验如何</span>。</li>
+                        <li><b>众数 (Mode)</b>：出现最频繁的值。它告诉你 <span class="narrative-highlight">大多数人的真实感受</span>。</li>
+                    </ul>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 开始觉醒</span></span>
+                    <p>他沉默了很久，然后说：“所以，我过去三年的监控——都是在看一个精心包装的谎言？”</p>
+                    <p>苏然没有回答，只是轻轻点了点头。</p>
+                    <p>林川深吸一口气，打开了 RStudio。“好，那就从今天开始，<span class="narrative-highlight">让数据告诉我真相</span>。”</p>
+                </div>
+                <div class="code-header">💻 R 实战 · 揭开平均值的面具</div>
+                <pre><code># 模拟 1000 个支付接口延迟数据
 set.seed(42)
 latency <- c(rpois(950, lambda = 80), rpois(50, lambda = 900))
 
@@ -564,73 +693,121 @@ median(latency)    # 约 80ms  —— 这才是大多数人的真实体验
 
 # 箱线图 —— 异常值一览无余
 boxplot(latency, col = "tomato", main = "API Latency: 真相藏在箱线图里")</code></pre>
-
-            <p>箱线图出来了。箱体压得很低——中位数 80ms。但在箱体上方，密密麻麻的圆点直冲 900ms 以上。</p>
-            <p>林川盯着那些圆点，像看到了一个个愤怒的用户在深夜刷新页面。“<span class="narrative-highlight">原来这就是平均值藏起来的秘密。</span>”</p>
+            </div>
         </section>
 
-        <!-- ===== 第二章 ===== -->
-        <section id="ch2" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🌊</span> 第二章</span>
-            <h2 class="chapter-title">流量的<span class="highlight">秘密语言</span></h2>
-            <div class="chapter-epigraph">
-                “随机不是混乱，而是另一种秩序。”
-                <span class="source"><i class="fa-regular fa-user"></i> 雅各布·伯努利 (Jacob Bernoulli) — 概率论奠基人</span>
+        <!-- ===== CHAPTER 2 ===== -->
+        <section id="ch2" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🌊</span> Chapter 2</span>
+            <h2 class="chapter-title">The <span class="highlight">Secret Language</span> of Traffic</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
-                <p>“Shawn，现在我们要做下一阶段的压力测试。但在开始之前，我要问你一个问题：<span class="narrative-highlight">如果你用固定的每秒 100 次请求去压测，你能模拟出真实的生产环境吗？</span>”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “Randomness is not chaos, but another kind of order.”
+                    <span class="source"><i class="fa-regular fa-user"></i> Jacob Bernoulli — Probability Pioneer</span>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Mentor</span></span>
+                    <p>"Shawn, we need to do the next phase of load testing. But before we start, I have a question: <span class="narrative-highlight">If you test with a fixed rate of 100 requests per second, can you simulate a real production environment?</span>"</p>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Confused</span></span>
+                    <p>"Can't I? 100 requests per second — isn't that standard?"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Mentor</span></span>
+                    <p>"Real user requests <span class="narrative-highlight">never arrive uniformly</span>. They're like raindrops — sometimes a drizzle, sometimes a downpour. If you load test at a fixed rate, you'll never measure the connection pool's true behavior under peak load."</p>
+                </div>
+                <h3>📌 Lesson 2: Probability Is the Engineer's Invisible Tool <span class="lesson-tag">Core Insight</span></h3>
+                <div class="concept-box">
+                    <span class="concept-term">Poisson Distribution · Event Counting</span>
+                    <span class="concept-def">— The probability of an event occurring <em>how many times</em> in a fixed time interval.</span>
+                    <div class="concept-example">💡 Example: "What's the probability that the gateway receives 47 requests in the next second?"</div>
+                </div>
+                <div class="math-block">
+                    <span class="math-label">📐 Poisson Distribution · Probability Mass Function</span>
+                    \[
+                    P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \dots
+                    \]
+                    <div class="math-fallback">P(X = k) = λᵏ · e⁻λ / k! ,  k = 0, 1, 2, ...</div>
+                </div>
+                <div class="concept-box">
+                    <span class="concept-term">Exponential Distribution · Event Intervals</span>
+                    <span class="concept-def">— The probability of <em>how long</em> between two events.</span>
+                    <div class="concept-example">💡 Example: "How many milliseconds until the next request arrives?"</div>
+                </div>
+                <div class="math-block">
+                    <span class="math-label">📐 Exponential Distribution · Probability Density Function</span>
+                    \[
+                    f(t) = \lambda e^{-\lambda t} \quad (t \ge 0)
+                    \]
+                    <div class="math-fallback">f(t) = λ · e⁻λᵗ ,  t ≥ 0</div>
+                </div>
+                <div class="code-header">💻 R in Action · Simulating Real Traffic</div>
+                <pre><code># Average of 50 requests per second
+lambda_val <- 50
+
+# Simulate inter-arrival times for 1000 requests (exponential distribution)
+inter_arrival_times <- rexp(1000, rate = lambda_val)
+
+# Calculate arrival timestamps
+arrival_timestamps <- cumsum(inter_arrival_times)
+
+# See the natural QPS fluctuation — this is the real world
+qps_per_second <- table(cut(arrival_timestamps, breaks = 0:20))
+barplot(qps_per_second, col = "darkseagreen", 
+        main = "Real-world QPS Fluctuation", 
+        xlab = "Time (seconds)", ylab = "Requests")</code></pre>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 困惑</span></span>
-                <p>“不能吗？每秒 100 次，不是挺标准的吗？”</p>
-            </div>
-
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
-                <p>“真实的用户请求，<span class="narrative-highlight">从来不是均匀到达的</span>。它们像雨滴——有时淅淅沥沥，有时倾盆而下。如果你用固定速率去压测，你永远测不出连接池在峰值时的真实表现。”</p>
-            </div>
-
-            <h3>📌 第二课：概率是工程师的隐形工具 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然翻开一本泛黄的笔记本，上面画着两个分布图。</p>
-            <p>“互联网的流量，有两个分布是所有架构师都必须刻骨铭心的——<span class="narrative-highlight">泊松分布</span>和<span class="narrative-highlight">指数分布</span>。它们描述了同一个随机过程的两面。”</p>
-
-            <div class="concept-box">
-                <span class="concept-term">泊松分布 · 事件计数</span>
-                <span class="concept-def">—— 在固定时间间隔内，事件发生 <em>多少次</em> 的概率。</span>
-                <div class="concept-example">💡 例如：“网关在下一秒内收到 47 个请求”的概率有多大？</div>
-            </div>
-
-            <div class="math-block">
-                <span class="math-label">📐 泊松分布 · 概率质量函数</span>
-                \[
-                P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \dots
-                \]
-                <div class="math-fallback">P(X = k) = λᵏ · e⁻λ / k! ,  k = 0, 1, 2, ...</div>
-            </div>
-
-            <div class="concept-box">
-                <span class="concept-term">指数分布 · 事件间隔</span>
-                <span class="concept-def">—— 两次事件之间 <em>相隔多久</em> 的概率。</span>
-                <div class="concept-example">💡 例如：“下一个请求还要等多少毫秒才来？”</div>
-            </div>
-
-            <div class="math-block">
-                <span class="math-label">📐 指数分布 · 概率密度函数</span>
-                \[
-                f(t) = \lambda e^{-\lambda t} \quad (t \ge 0)
-                \]
-                <div class="math-fallback">f(t) = λ · e⁻λᵗ ,  t ≥ 0</div>
-            </div>
-
-            <p>苏然顿了顿，加重了语气：“指数分布有一个特性，叫做<span class="narrative-highlight">无记忆性</span>——无论上一个请求是刚刚到达还是 5 秒前，下一个请求什么时候来，概率分布都是一样的。<span class="narrative-highlight">这正是互联网海量独立用户的完美写照</span>——每个用户都是独立的，不受彼此影响。”</p>
-
-            <p>林川看着公式，忽然有一种奇妙的感受：“<span class="narrative-highlight">原来我们每天处理的流量，背后有如此精确的数学规律。</span>”</p>
-
-            <div class="code-header">💻 R 实战 · 模拟真实流量发生器</div>
-            <pre><code># 平均每秒 50 个请求
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “随机不是混乱，而是另一种秩序。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 雅各布·伯努利 (Jacob Bernoulli)</span>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
+                    <p>“Shawn，现在我们要做下一阶段的压力测试。但在开始之前，我要问你一个问题：<span class="narrative-highlight">如果你用固定的每秒 100 次请求去压测，你能模拟出真实的生产环境吗？</span>”</p>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 困惑</span></span>
+                    <p>“不能吗？每秒 100 次，不是挺标准的吗？”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
+                    <p>“真实的用户请求，<span class="narrative-highlight">从来不是均匀到达的</span>。它们像雨滴——有时淅淅沥沥，有时倾盆而下。如果你用固定速率去压测，你永远测不出连接池在峰值时的真实表现。”</p>
+                </div>
+                <h3>📌 第二课：概率是工程师的隐形工具 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="concept-box">
+                    <span class="concept-term">泊松分布 · 事件计数</span>
+                    <span class="concept-def">—— 在固定时间间隔内，事件发生 <em>多少次</em> 的概率。</span>
+                    <div class="concept-example">💡 例如：“网关在下一秒内收到 47 个请求”的概率有多大？</div>
+                </div>
+                <div class="math-block">
+                    <span class="math-label">📐 泊松分布 · 概率质量函数</span>
+                    \[
+                    P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \dots
+                    \]
+                    <div class="math-fallback">P(X = k) = λᵏ · e⁻λ / k! ,  k = 0, 1, 2, ...</div>
+                </div>
+                <div class="concept-box">
+                    <span class="concept-term">指数分布 · 事件间隔</span>
+                    <span class="concept-def">—— 两次事件之间 <em>相隔多久</em> 的概率。</span>
+                    <div class="concept-example">💡 例如：“下一个请求还要等多少毫秒才来？”</div>
+                </div>
+                <div class="math-block">
+                    <span class="math-label">📐 指数分布 · 概率密度函数</span>
+                    \[
+                    f(t) = \lambda e^{-\lambda t} \quad (t \ge 0)
+                    \]
+                    <div class="math-fallback">f(t) = λ · e⁻λᵗ ,  t ≥ 0</div>
+                </div>
+                <div class="code-header">💻 R 实战 · 模拟真实流量发生器</div>
+                <pre><code># 平均每秒 50 个请求
 lambda_val <- 50
 
 # 模拟 1000 个请求之间的间隔时间（指数分布）
@@ -644,60 +821,94 @@ qps_per_second <- table(cut(arrival_timestamps, breaks = 0:20))
 barplot(qps_per_second, col = "darkseagreen", 
         main = "真实世界的 QPS 波动", 
         xlab = "时间 (秒)", ylab = "请求数")</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 领悟</span></span>
-                <p>他盯着柱状图上 40、55、62 的自然起伏，忽然明白了：“<span class="narrative-highlight">这才是真实的流量。固定速率的压测，是活在理想世界里。而真实世界，充满了随机的韵律。</span>”</p>
-                <p>苏然点头：“<span class="narrative-highlight">随机不是错误，随机是世界的本质。学会和随机共舞，你才真正开始理解系统。</span>”</p>
             </div>
         </section>
 
-        <!-- ===== 第三章 ===== -->
-        <section id="ch3" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🔭</span> 第三章</span>
-            <h2 class="chapter-title">从局部<span class="highlight">看见整体</span></h2>
-            <div class="chapter-epigraph">
-                “样本是通往总体的唯一桥梁。”
-                <span class="source"><i class="fa-regular fa-user"></i> 威廉·戈塞特 (William Gosset) — t检验发明者，笔名“学生”</span>
+        <!-- ===== CHAPTER 3 ===== -->
+        <section id="ch3" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🔭</span> Chapter 3</span>
+            <h2 class="chapter-title">Seeing the <span class="highlight">Whole</span> from the Part</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 工程困境</span></span>
-                <p>“Stella，生产环境的日志每天几个 TB。全量捞出来计算均值和百分位数，磁盘和 CPU 都撑不住。我想每小时只抽样 100 条，用它来代表这一个小时数百万请求的情况——<span class="narrative-highlight">但这 100 条能信吗？</span>”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “The sample is the only bridge to the population.”
+                    <span class="source"><i class="fa-regular fa-user"></i> William Gosset — Inventor of the t-test</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Engineering Dilemma</span></span>
+                    <p>"Stella, production logs are several terabytes per day. Pulling everything to calculate means and percentiles kills disk and CPU. I want to sample just 100 entries per hour to represent millions of requests — <span class="narrative-highlight">but can I trust these 100 entries?</span>"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Mentor</span></span>
+                    <p>"This is where we invoke statistics' crown jewel — <span class="narrative-highlight">the Central Limit Theorem (CLT)</span>. It's the mathematical guarantee that lets you infer the whole world from a small sample."</p>
+                </div>
+                <div class="figure-container">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23f5f0e8'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23b8860b' font-size='20' font-weight='bold' font-family='sans-serif'%3ECentral Limit Theorem · The Most Beautiful Theorem in the Universe%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3EPopulation · Any Shape%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23b85c4a' font-size='13'%3E(Right-Skewed)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23b85c4a' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23b85c4a' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3ERepeated Sampling%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%236b5f50' font-size='12'%3ESample Size n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%236b5f50' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3EDistribution of Sample Means%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%237a5a4b' font-size='13'%3E(Approximately Normal)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%236b5f50' font-size='13'%3ENo matter the population shape, sample means converge to a normal distribution!%3C/text%3E%3C/svg%3E"
+                         alt="Central Limit Theorem illustration" />
+                    <div class="fig-caption">Figure: The Central Limit Theorem — <span class="narrative-highlight">No matter how skewed the population, the sample means will always approximate a normal distribution</span></div>
+                </div>
+                <h3>📌 Lesson 3: Seeing the Whole with Samples <span class="lesson-tag">Core Insight</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 Standard Error · Your Margin of Error</span>
+                    \[
+                    SE = \frac{s}{\sqrt{n}}
+                    \]
+                    <div class="math-fallback">SE = s / √n</div>
+                </div>
+                <div class="code-header">💻 R in Action · Lightweight Sampling + Confidence Intervals</div>
+                <pre><code># Million-level population
+population_latency <- c(rnorm(1000000, mean = 120, sd = 15))
+
+# Sample just 100 entries — enough? CLT says: Yes
+set.seed(123)
+sample_data <- sample(population_latency, size = 100)
+sample_mean <- mean(sample_data)
+sample_sd <- sd(sample_data)
+
+# 95% Confidence Interval — your margin of error
+n <- length(sample_data)
+se <- sample_sd / sqrt(n)
+margin_error <- qt(0.975, df = n - 1) * se
+
+ci_lower <- sample_mean - margin_error
+ci_upper <- sample_mean + margin_error
+
+cat(sprintf("Sample mean: %.2f ms\n", sample_mean))
+cat(sprintf("95%% Confidence Interval: [%.2f, %.2f] ms\n", ci_lower, ci_upper))</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
-                <p>“这就要请出统计学的镇山之宝——<span class="narrative-highlight">中央极限定理 (CLT)</span>。它是你能用少量样本推断全世界的数学担保。”</p>
-            </div>
-
-            <div class="figure-container">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23f5f0e8'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23b8860b' font-size='20' font-weight='bold' font-family='sans-serif'%3E中央极限定理 · 宇宙最美的定理%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E总体 · 任何形状%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23b85c4a' font-size='13'%3E(右偏态)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23b85c4a' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23b85c4a' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E重复抽样%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%236b5f50' font-size='12'%3E样本容量 n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%236b5f50' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E样本均值的分布%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%237a5a4b' font-size='13'%3E(近似正态)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%236b5f50' font-size='13'%3E无论总体是什么形状，样本均值都会收敛到正态分布！%3C/text%3E%3C/svg%3E"
-                     alt="中央极限定理示意图" />
-                <div class="fig-caption">图：中央极限定理 —— <span class="narrative-highlight">无论总体多么扭曲，样本均值总会趋于正态</span></div>
-            </div>
-
-            <h3>📌 第三课：用样本看见全貌 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然在白板上写下三个字母：<span class="narrative-highlight">CLT</span>。</p>
-            <p>“中央极限定理说：<span class="narrative-highlight">无论总体的原始分布是什么样子</span>——哪怕是极度偏态的 API 响应时间——只要每次抽样样本量 \(n \ge 30\)，<span class="narrative-highlight">所有样本均值的分布都会逼近正态分布</span>。”</p>
-            <p>“这意味着，”她看着林川的眼睛，“<span class="narrative-highlight">你抽 100 条日志算出的均值，在数学上是有保障的</span>。你不仅能用它估计总体，还能算出误差范围——这就是<span class="narrative-highlight">置信区间</span>。”</p>
-
-            <div class="math-block">
-                <span class="math-label">📐 标准误 · 你的误差范围</span>
-                \[
-                SE = \frac{s}{\sqrt{n}}
-                \]
-                <div class="math-fallback">SE = s / √n</div>
-            </div>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 震撼</span></span>
-                <p>“所以……我过去全量捞日志，其实是在做无用功？<span class="narrative-highlight">科学早就告诉我，样本就足够了？</span>”</p>
-                <p>苏然笑了：“<span class="narrative-highlight">数学的好处就是，它不会因为你不知道它就不工作。现在你知道了，你可以省下 99% 的计算资源。</span>”</p>
-            </div>
-
-            <div class="code-header">💻 R 实战 · 轻量级抽样 + 置信区间</div>
-            <pre><code># 百万级总体
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “样本是通往总体的唯一桥梁。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 威廉·戈塞特 (William Gosset) — t检验发明者</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 工程困境</span></span>
+                    <p>“Stella，生产环境的日志每天几个 TB。全量捞出来计算均值和百分位数，磁盘和 CPU 都撑不住。我想每小时只抽样 100 条，用它来代表这一个小时数百万请求的情况——<span class="narrative-highlight">但这 100 条能信吗？</span>”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
+                    <p>“这就要请出统计学的镇山之宝——<span class="narrative-highlight">中央极限定理 (CLT)</span>。它是你能用少量样本推断全世界的数学担保。”</p>
+                </div>
+                <div class="figure-container">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23f5f0e8'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23b8860b' font-size='20' font-weight='bold' font-family='sans-serif'%3E中央极限定理 · 宇宙最美的定理%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E总体 · 任何形状%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23b85c4a' font-size='13'%3E(右偏态)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23b85c4a' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23b85c4a' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E重复抽样%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%236b5f50' font-size='12'%3E样本容量 n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%236b5f50' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E样本均值的分布%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%237a5a4b' font-size='13'%3E(近似正态)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%236b5f50' font-size='13'%3E无论总体是什么形状，样本均值都会收敛到正态分布！%3C/text%3E%3C/svg%3E"
+                         alt="中央极限定理示意图" />
+                    <div class="fig-caption">图：中央极限定理 —— <span class="narrative-highlight">无论总体多么扭曲，样本均值总会趋于正态</span></div>
+                </div>
+                <h3>📌 第三课：用样本看见全貌 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 标准误 · 你的误差范围</span>
+                    \[
+                    SE = \frac{s}{\sqrt{n}}
+                    \]
+                    <div class="math-fallback">SE = s / √n</div>
+                </div>
+                <div class="code-header">💻 R 实战 · 轻量级抽样 + 置信区间</div>
+                <pre><code># 百万级总体
 population_latency <- c(rnorm(1000000, mean = 120, sd = 15))
 
 # 只抽 100 条 —— 够了吗？CLT 说：够了
@@ -715,112 +926,156 @@ ci_lower <- sample_mean - margin_error
 ci_upper <- sample_mean + margin_error
 
 cat(sprintf("样本均值: %.2f ms\n", sample_mean))
-cat(sprintf("95%% 置信区间: [%.2f, %.2f] ms\n", ci_lower, ci_upper))
-# 输出：真实均值 120ms 被完美包裹在区间内</code></pre>
-
-            <p>林川看着输出，长久沉默。<span class="narrative-highlight">原来他过去三年的焦虑——担心样本不准、必须全量计算——都是因为不知道这个定理。</span></p>
-            <p>“<span class="narrative-highlight">知识，真的是最好的性能优化。</span>”他轻声说。</p>
+cat(sprintf("95%% 置信区间: [%.2f, %.2f] ms\n", ci_lower, ci_upper))</code></pre>
+            </div>
         </section>
 
-        <!-- ===== 第四章 ===== -->
-        <section id="ch4" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🧪</span> 第四章</span>
-            <h2 class="chapter-title">实验的<span class="highlight">陷阱</span></h2>
-            <div class="chapter-epigraph">
-                “显著性不是真相的证明，而是信号的警报。”
-                <span class="source"><i class="fa-regular fa-user"></i> 罗纳德·费希尔 (Ronald Fisher) — 现代统计学奠基人</span>
+        <!-- ===== CHAPTER 4 ===== -->
+        <section id="ch4" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🧪</span> Chapter 4</span>
+            <h2 class="chapter-title">The <span class="highlight">Trap</span> of Experiments</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 被催着上线的架构师</span></span>
-                <p>“Stella，产品经理跑来说新版本转化率提升了 2.1%，\(p\) 值是 0.048，小于 0.05，要求全量上线。<span class="narrative-highlight">但服务器报错率好像也在上升。我该信 p 值吗？</span>”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “Significance is not proof of truth, but an alarm of signal.”
+                    <span class="source"><i class="fa-regular fa-user"></i> Ronald Fisher — Father of Modern Statistics</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Architect Pushed to Deploy</span></span>
+                    <p>"Stella, the product manager says the new version has a 2.1% conversion lift, with a \(p\)-value of 0.048, less than 0.05, and wants a full rollout. <span class="narrative-highlight">But the server error rate seems to be rising too. Should I trust the p-value?</span>"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Cautious Mentor</span></span>
+                    <p>"Is he checking the \(p\)-value every day? And stopping the experiment as soon as it drops below 0.05?"</p>
+                    <p>Lin Chuan was startled: "Yes! How did you know?"</p>
+                    <p>"<span class="narrative-highlight">Because this is classic p-hacking</span>," Su Ran sighed, "<span class="narrative-highlight">p-values fluctuate randomly during experiments like stock prices.</span> If you check daily and stop early, your error rate balloons from 5% to over 30%. This isn't science — it's gambling."</p>
+                </div>
+                <h3>📌 Lesson 4: Hypothesis Testing Is a Trial, Not a Lottery <span class="lesson-tag">Core Insight</span></h3>
+                <div class="blackboard">
+                    <h4>⚖️ Hypothesis Testing · Presumption of Innocence</h4>
+                    <ul>
+                        <li><b>Null Hypothesis \(H_0\)</b>: The new version and the old version <span class="narrative-highlight">have no</span> difference.</li>
+                        <li><b>Alternative Hypothesis \(H_1\)</b>: The new version and the old version <span class="narrative-highlight">have</span> a difference.</li>
+                    </ul>
+                </div>
+                <div class="code-header">💻 R in Action · Rejecting p-hacking</div>
+                <pre><code># Real experimental data (not prematurely stopped)
+control <- rnorm(500, mean = 0.12, sd = 0.02)
+treatment <- rnorm(500, mean = 0.122, sd = 0.02)
+
+# Proper two-sample t-test
+t.test(treatment, control, alternative = "two.sided")
+# p = 0.38 — not significant! The improvement is just random fluctuation</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 警惕的导师</span></span>
-                <p>“他是不是每天都在后台看 \(p\) 值？一旦看到低于 0.05 就立刻叫停？”</p>
-                <p>林川一惊：“对！你怎么知道？”</p>
-                <p>“<span class="narrative-highlight">因为这是经典的 p-hacking</span>，”苏然叹了口气，“<span class="narrative-highlight">p 值在实验中会像股票一样随机波动</span>。如果你每天查看并随时终止，你犯错的概率会从 5% 飙升到 30% 以上。这不是科学，这是赌博。”</p>
-            </div>
-
-            <h3>📌 第四课：假设检验是审判，不是彩票 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然在桌上放了两杯咖啡。“假设这是旧版和新版。我们要证明的是——<span class="narrative-highlight">在没有差异的前提下，我们观察到的差异有多大可能是随机造成的</span>。这就是 \(p\) 值的含义。”</p>
-
-            <div class="blackboard">
-                <h4>⚖️ 假设检验 · 无罪推定</h4>
-                <ul>
-                    <li><b>原假设 \(H_0\)</b>：新版和旧版 <span class="narrative-highlight">没有</span> 区别。</li>
-                    <li><b>备择假设 \(H_1\)</b>：新版和旧版 <span class="narrative-highlight">有</span> 区别。</li>
-                </ul>
-            </div>
-
-            <p>“当你拒绝原假设时，你可能会犯两种错误：”</p>
-
-            <table>
-                <thead>
-                    <tr><th></th><th>拒绝 \(H_0\)</th><th>接受 \(H_0\)</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><b>\(H_0\) 属实</b></td><td style="color:var(--accent);"><b>第一类错误 (假阳性)</b></td><td style="color:#2a7a4a;">✅ 正确</td></tr>
-                    <tr><td><b>\(H_1\) 属实</b></td><td style="color:#2a7a4a;">✅ 正确</td><td style="color:var(--accent);"><b>第二类错误 (假阴性)</b></td></tr>
-                </tbody>
-            </table>
-
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
-                <p>“<span class="narrative-highlight">第一类错误是你最大的敌人</span>。它让你相信一个不存在的效果——就像这次，差点把有 bug 的新版本推上线。第二类错误让你错过真正的改进——但相比之下，假阳性的代价往往更大。”</p>
-            </div>
-
-            <div class="code-header">💻 R 实战 · 拒绝 p-hacking</div>
-            <pre><code># 真实的实验数据（没有被提前终止）
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “显著性不是真相的证明，而是信号的警报。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 罗纳德·费希尔 (Ronald Fisher)</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 被催着上线的架构师</span></span>
+                    <p>“Stella，产品经理跑来说新版本转化率提升了 2.1%，\(p\) 值是 0.048，小于 0.05，要求全量上线。<span class="narrative-highlight">但服务器报错率好像也在上升。我该信 p 值吗？</span>”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 警惕的导师</span></span>
+                    <p>“他是不是每天都在后台看 \(p\) 值？一旦看到低于 0.05 就立刻叫停？”</p>
+                    <p>林川一惊：“对！你怎么知道？”</p>
+                    <p>“<span class="narrative-highlight">因为这是经典的 p-hacking</span>，”苏然叹了口气，“<span class="narrative-highlight">p 值在实验中会像股票一样随机波动</span>。如果你每天查看并随时终止，你犯错的概率会从 5% 飙升到 30% 以上。这不是科学，这是赌博。”</p>
+                </div>
+                <h3>📌 第四课：假设检验是审判，不是彩票 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="blackboard">
+                    <h4>⚖️ 假设检验 · 无罪推定</h4>
+                    <ul>
+                        <li><b>原假设 \(H_0\)</b>：新版和旧版 <span class="narrative-highlight">没有</span> 区别。</li>
+                        <li><b>备择假设 \(H_1\)</b>：新版和旧版 <span class="narrative-highlight">有</span> 区别。</li>
+                    </ul>
+                </div>
+                <div class="code-header">💻 R 实战 · 拒绝 p-hacking</div>
+                <pre><code># 真实的实验数据（没有被提前终止）
 control <- rnorm(500, mean = 0.12, sd = 0.02)
 treatment <- rnorm(500, mean = 0.122, sd = 0.02)
 
 # 科学的两样本 t 检验
 t.test(treatment, control, alternative = "two.sided")
 # p = 0.38 —— 不显著！新方案的提升只是随机波动</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 领悟</span></span>
-                <p>“所以……<span class="narrative-highlight">p 值不是产品经理的战利品，而是科学家的警钟</span>。它告诉我的是‘小心’，而不是‘冲’。”</p>
-                <p>他拿起手机给产品经理发了条消息：“实验继续跑，两周后见分晓。不许提前看 p 值。”然后他关掉手机，转向苏然：“<span class="narrative-highlight">还有什么是我不知道的？</span>”</p>
             </div>
         </section>
 
-        <!-- ===== 第五章 ===== -->
-        <section id="ch5" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">⚔️</span> 第五章</span>
-            <h2 class="chapter-title">多人的<span class="highlight">对决</span></h2>
-            <div class="chapter-epigraph">
-                “比较多个群体时，你需要一把剑，而不是三把小刀。”
-                <span class="source"><i class="fa-regular fa-user"></i> 约翰·图基 (John Tukey) — 数据可视化先驱，Tukey HSD 检验发明者</span>
+        <!-- ===== CHAPTER 5 ===== -->
+        <section id="ch5" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">⚔️</span> Chapter 5</span>
+            <h2 class="chapter-title">The <span class="highlight">Battle</span> of Many</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 被会议折磨的架构师</span></span>
-                <p>“Stella，三套缓存策略在会议室里吵翻天了。我想做三次两两 \(t\) 检验——A vs B, B vs C, A vs C——<span class="narrative-highlight">谁快用谁，行不行？</span>”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “When comparing multiple groups, you need one sword, not three knives.”
+                    <span class="source"><i class="fa-regular fa-user"></i> John Tukey — Inventor of Tukey HSD</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Architect Tortured by Meetings</span></span>
+                    <p>"Stella, three caching strategies are causing heated debates in the meeting room. I want to run three pairwise \(t\)-tests — A vs B, B vs C, A vs C — <span class="narrative-highlight">whoever's fastest wins. Is that okay?</span>"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Frustrated Mentor</span></span>
+                    <p>"<span class="narrative-highlight">Absolutely not.</span>" Su Ran's voice was firm. "Each \(t\)-test has a 5% false positive rate. Run 3, and the overall error rate becomes \(1 - (1 - 0.05)^3 \approx 14.3\%\). <span class="narrative-highlight">Run 10, and it hits 40%.</span> You're shooting with a shotgun — you'll hit something eventually, but that's luck, not truth."</p>
+                </div>
+                <h3>📌 Lesson 5: ANOVA — A Global Judgment <span class="lesson-tag">Core Insight</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 F-Ratio · Signal vs. Noise</span>
+                    \[
+                    F = \frac{\text{Mean Square Between (MSB)}}{\text{Mean Square Within (MSW)}}
+                    \]
+                    <div class="math-fallback">F = Mean Square Between / Mean Square Within</div>
+                </div>
+                <div class="code-header">💻 R in Action · Strategy Showdown</div>
+                <pre><code>set.seed(99)
+A <- rnorm(50, mean = 45, sd = 5)
+B <- rnorm(50, mean = 43, sd = 5)
+C <- rnorm(50, mean = 35, sd = 5)  # C is clearly better
+
+perf <- data.frame(
+  Latency = c(A, B, C),
+  Strategy = factor(rep(c("A", "B", "C"), each = 50))
+)
+
+anova_res <- aov(Latency ~ Strategy, data = perf)
+summary(anova_res)  # p < 0.001 — the three groups are indeed different
+
+TukeyHSD(anova_res)  # C-A and C-B are highly significant (p < 0.001)</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 无奈的导师</span></span>
-                <p>“<span class="narrative-highlight">绝对不行。</span>”苏然的声音斩钉截铁，“每一次 \(t\) 检验都有 5% 的假阳性概率。做 3 次，整体犯错率就变成 \(1 - (1 - 0.05)^3 \approx 14.3\%\)。<span class="narrative-highlight">做 10 次，直奔 40%。</span>你这是在用散弹枪打靶——总会有一次命中，但那是运气，不是真相。”</p>
-            </div>
-
-            <h3>📌 第五课：方差分析 · 全局审判 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然在白板上画了一张表：“<span class="narrative-highlight">方差分析 (ANOVA) 的精髓在于：它先问一个全局问题——这些策略之间到底有没有差异？</span>然后再决定是否需要两两比较。”</p>
-
-            <div class="math-block">
-                <span class="math-label">📐 F 比率 · 信号 vs 噪音</span>
-                \[
-                F = \frac{\text{组间均方 (MSB)}}{\text{组内均方 (MSW)}}
-                \]
-                <div class="math-fallback">F = 组间均方 / 组内均方</div>
-            </div>
-
-            <p>“<span class="narrative-highlight">如果组间差异远大于组内随机波动，F 值就会很大</span>，从而拒绝‘所有策略都一样’的原假设。然后，如果 F 检验显著，再用 <span class="narrative-highlight">Tukey HSD 事后检验</span>——它会自动惩罚多次比较，把整体犯错率锁死在 5%。”</p>
-
-            <div class="code-header">💻 R 实战 · 策略对决</div>
-            <pre><code>set.seed(99)
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “比较多个群体时，你需要一把剑，而不是三把小刀。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 约翰·图基 (John Tukey)</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 被会议折磨的架构师</span></span>
+                    <p>“Stella，三套缓存策略在会议室里吵翻天了。我想做三次两两 \(t\) 检验——A vs B, B vs C, A vs C——<span class="narrative-highlight">谁快用谁，行不行？</span>”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 无奈的导师</span></span>
+                    <p>“<span class="narrative-highlight">绝对不行。</span>”苏然的声音斩钉截铁，“每一次 \(t\) 检验都有 5% 的假阳性概率。做 3 次，整体犯错率就变成 \(1 - (1 - 0.05)^3 \approx 14.3\%\)。<span class="narrative-highlight">做 10 次，直奔 40%。</span>你这是在用散弹枪打靶——总会有一次命中，但那是运气，不是真相。”</p>
+                </div>
+                <h3>📌 第五课：方差分析 · 全局审判 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 F 比率 · 信号 vs 噪音</span>
+                    \[
+                    F = \frac{\text{组间均方 (MSB)}}{\text{组内均方 (MSW)}}
+                    \]
+                    <div class="math-fallback">F = 组间均方 / 组内均方</div>
+                </div>
+                <div class="code-header">💻 R 实战 · 策略对决</div>
+                <pre><code>set.seed(99)
 A <- rnorm(50, mean = 45, sd = 5)
 B <- rnorm(50, mean = 43, sd = 5)
 C <- rnorm(50, mean = 35, sd = 5)  # C 明显更优
@@ -834,38 +1089,71 @@ anova_res <- aov(Latency ~ Strategy, data = perf)
 summary(anova_res)  # p < 0.001 — 三组确实不同
 
 TukeyHSD(anova_res)  # C-A 和 C-B 都极显著 (p < 0.001)</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 解脱</span></span>
-                <p>“所以……<span class="narrative-highlight">我再也不用在会议室里听人拍桌子争论了。让数据说话，让 ANOVA 做裁判。</span>”</p>
-                <p>他把分析结果发到群里：“策略 C 是唯一的王者，会议结束。”然后他转向苏然，“<span class="narrative-highlight">我开始理解你所说的‘统计学是思维方式’了。</span>”</p>
             </div>
         </section>
 
-        <!-- ===== 第六章 ===== -->
-        <section id="ch6" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🌀</span> 第六章</span>
-            <h2 class="chapter-title">当两个世界<span class="highlight">碰撞</span></h2>
-            <div class="chapter-epigraph">
-                “交互效应是世界的真相——没有事物是孤立的。”
-                <span class="source"><i class="fa-regular fa-user"></i> 安德鲁·格尔曼 (Andrew Gelman) — 当代著名统计学家</span>
+        <!-- ===== CHAPTER 6 ===== -->
+        <section id="ch6" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🌀</span> Chapter 6</span>
+            <h2 class="chapter-title">When Two Worlds <span class="highlight">Collide</span></h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 被现实打脸的架构师</span></span>
-                <p>“Stella，策略 C 在本地测试一骑绝尘。但上线后发现：<span class="narrative-highlight">在 PostgreSQL 上快得飞起，在 MySQL 上却慢得像蜗牛</span>。我该怎么办？”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “Interaction effects are the truth of the world — nothing exists in isolation.”
+                    <span class="source"><i class="fa-regular fa-user"></i> Andrew Gelman — Contemporary Statistician</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Architect Humbled by Reality</span></span>
+                    <p>"Stella, Strategy C was a runaway success in local testing. But after deployment: <span class="narrative-highlight">it flies on PostgreSQL but crawls on MySQL</span>. What do I do?"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Mentor Seeing the Truth</span></span>
+                    <p>"You've encountered an <span class="narrative-highlight">interaction effect</span>. When 'caching strategy' and 'database type' intertwine, their effects are no longer simply additive. <span class="narrative-highlight">This is the battlefield of two-way ANOVA.</span>"</p>
+                </div>
+                <h3>📌 Lesson 6: The World Is Interactive <span class="lesson-tag">Core Insight</span></h3>
+                <div class="code-header">💻 R in Action · Visualizing Interaction Effects</div>
+                <pre><code>set.seed(88)
+db_types <- rep(c("MySQL", "PostgreSQL"), each = 75)
+strategies <- rep(rep(c("A", "B", "C"), each = 25), 2)
+
+latency <- c(
+  rnorm(25, 45, 4), rnorm(25, 43, 4), rnorm(25, 55, 4),  # MySQL
+  rnorm(25, 42, 4), rnorm(25, 40, 4), rnorm(25, 25, 4)   # PostgreSQL
+)
+
+df <- data.frame(Latency = latency, 
+                 Strategy = factor(strategies), 
+                 DB = factor(db_types))
+
+# Two-way ANOVA with interaction term
+summary(aov(Latency ~ Strategy * DB, data = df))
+
+# Interaction plot — crossing lines, indicating the need for different strategies
+interaction.plot(df$Strategy, df$DB, df$Latency, 
+                 col = c("coral", "royalblue"),
+                 main = "Interaction Between Strategy and Database")</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 洞察真相的导师</span></span>
-                <p>“你遇到了<span class="narrative-highlight">交互效应</span>。当‘缓存策略’和‘数据库类型’这两个维度纠缠在一起时，它们的效果不再是简单的相加。<span class="narrative-highlight">这是双因素方差分析的战场。</span>”</p>
-            </div>
-
-            <h3>📌 第六课：世界是交互的 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然画了两条交叉的线。“如果不存在交互效应，两条线应该是平行的。但如果它们交叉——<span class="narrative-highlight">说明没有一个放之四海皆准的方案，你必须针对不同场景做不同选择</span>。”</p>
-
-            <div class="code-header">💻 R 实战 · 交互效应可视化</div>
-            <pre><code>set.seed(88)
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “交互效应是世界的真相——没有事物是孤立的。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 安德鲁·格尔曼 (Andrew Gelman)</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 被现实打脸的架构师</span></span>
+                    <p>“Stella，策略 C 在本地测试一骑绝尘。但上线后发现：<span class="narrative-highlight">在 PostgreSQL 上快得飞起，在 MySQL 上却慢得像蜗牛</span>。我该怎么办？”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 洞察真相的导师</span></span>
+                    <p>“你遇到了<span class="narrative-highlight">交互效应</span>。当‘缓存策略’和‘数据库类型’这两个维度纠缠在一起时，它们的效果不再是简单的相加。<span class="narrative-highlight">这是双因素方差分析的战场。</span>”</p>
+                </div>
+                <h3>📌 第六课：世界是交互的 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="code-header">💻 R 实战 · 交互效应可视化</div>
+                <pre><code>set.seed(88)
 db_types <- rep(c("MySQL", "PostgreSQL"), each = 75)
 strategies <- rep(rep(c("A", "B", "C"), each = 25), 2)
 
@@ -885,54 +1173,86 @@ summary(aov(Latency ~ Strategy * DB, data = df))
 interaction.plot(df$Strategy, df$DB, df$Latency, 
                  col = c("coral", "royalblue"),
                  main = "策略与数据库的交互效应")</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 成熟的架构师</span></span>
-                <p>他看着交叉的折线，明白了：“<span class="narrative-highlight">没有普适的最优解，只有上下文中的最优解</span>。MySQL 用策略 B，PostgreSQL 用策略 C。”</p>
-                <p>他写下新的部署配置。“<span class="narrative-highlight">这是我第一次真正理解‘架构是权衡的艺术’这句话。</span>”</p>
             </div>
         </section>
 
-        <!-- ===== 第七章 ===== -->
-        <section id="ch7" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🔮</span> 第七章</span>
-            <h2 class="chapter-title">预见未来的<span class="highlight">能力</span></h2>
-            <div class="chapter-epigraph">
-                “回归不是预言，而是看清趋势。”
-                <span class="source"><i class="fa-regular fa-user"></i> 弗朗西斯·高尔顿 (Francis Galton) — 回归分析先驱</span>
+        <!-- ===== CHAPTER 7 ===== -->
+        <section id="ch7" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🔮</span> Chapter 7</span>
+            <h2 class="chapter-title">The <span class="highlight">Power</span> to See the Future</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 焦虑的架构师</span></span>
-                <p>“Stella，大促要来了。<span class="narrative-highlight">我很害怕 OOM。有没有办法通过当前的并发数，提前算出内存会飙升到多少？</span>”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “Regression is not prophecy, but seeing the trend.”
+                    <span class="source"><i class="fa-regular fa-user"></i> Francis Galton — Regression Analysis Pioneer</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Anxious Architect</span></span>
+                    <p>"Stella, the big sales event is coming. <span class="narrative-highlight">I'm terrified of OOM. Is there a way to predict how high memory usage will spike based on current concurrency?</span>"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Empowering Mentor</span></span>
+                    <p>"From this chapter onward, we're moving from 'explaining the past' to 'predicting the future.' <span class="narrative-highlight">Linear regression is the engineer's most powerful prediction tool.</span>"</p>
+                </div>
+                <h3>📌 Lesson 7: Drawing the Line of Causality <span class="lesson-tag">Core Insight</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 Linear Regression Model</span>
+                    \[
+                    Y = \beta_0 + \beta_1 X + \epsilon
+                    \]
+                    <div class="math-fallback">Y = β₀ + β₁·X + ε</div>
+                </div>
+                <div class="concept-box">
+                    <span class="concept-term">Coefficient of Determination \(R^2\)</span>
+                    <span class="concept-def">— How much of the variation does the model explain?</span>
+                    <div class="concept-example">💡 If \(R^2 = 0.85\), concurrency alone explains 85% of memory variation. That's an excellent model!</div>
+                </div>
+                <div class="code-header">💻 R in Action · Setting Circuit Breaker Thresholds</div>
+                <pre><code>set.seed(77)
+requests <- runif(100, 1000, 10000)
+memory <- 20 + 0.007 * requests + rnorm(100, 0, 4)
+
+model <- lm(memory ~ requests)
+summary(model)  # R² ≈ 0.95, excellent model
+
+# Predict memory usage at 8500 concurrent requests
+new_data <- data.frame(requests = 8500)
+predict(model, newdata = new_data, interval = "prediction")
+# 95% prediction interval upper bound: 88.2%</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 赋予力量的导师</span></span>
-                <p>“从这一章开始，我们要从‘解释过去’跨入‘预测未来’的领域了。<span class="narrative-highlight">线性回归是工程师最强大的预测工具。</span>”</p>
-            </div>
-
-            <h3>📌 第七课：画出因果之线 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然在坐标轴上画了一条线：“我们假设并发请求数与内存占用之间存在线性关系——每多一个请求，内存就增加一点。这条线就是 <span class="narrative-highlight">回归线</span>。”</p>
-
-            <div class="math-block">
-                <span class="math-label">📐 线性回归模型</span>
-                \[
-                Y = \beta_0 + \beta_1 X + \epsilon
-                \]
-                <div class="math-fallback">Y = β₀ + β₁·X + ε</div>
-            </div>
-
-            <p>“\(\beta_1\) 是斜率——它告诉你每增加一个并发请求，内存会上升多少。<span class="narrative-highlight">这是你设置熔断阈值的数学依据。</span>”</p>
-
-            <div class="concept-box">
-                <span class="concept-term">决定系数 \(R^2\)</span>
-                <span class="concept-def">—— 模型解释了多少比例的波动。</span>
-                <div class="concept-example">💡 如果 \(R^2 = 0.85\)，说明并发数这一个变量就能解释 85% 的内存变化。这是一个极好的模型！</div>
-            </div>
-
-            <div class="code-header">💻 R 实战 · 设置熔断阈值</div>
-            <pre><code>set.seed(77)
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “回归不是预言，而是看清趋势。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 弗朗西斯·高尔顿 (Francis Galton)</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 焦虑的架构师</span></span>
+                    <p>“Stella，大促要来了。<span class="narrative-highlight">我很害怕 OOM。有没有办法通过当前的并发数，提前算出内存会飙升到多少？</span>”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 赋予力量的导师</span></span>
+                    <p>“从这一章开始，我们要从‘解释过去’跨入‘预测未来’的领域了。<span class="narrative-highlight">线性回归是工程师最强大的预测工具。</span>”</p>
+                </div>
+                <h3>📌 第七课：画出因果之线 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 线性回归模型</span>
+                    \[
+                    Y = \beta_0 + \beta_1 X + \epsilon
+                    \]
+                    <div class="math-fallback">Y = β₀ + β₁·X + ε</div>
+                </div>
+                <div class="concept-box">
+                    <span class="concept-term">决定系数 \(R^2\)</span>
+                    <span class="concept-def">—— 模型解释了多少比例的波动。</span>
+                    <div class="concept-example">💡 如果 \(R^2 = 0.85\)，说明并发数这一个变量就能解释 85% 的内存变化。</div>
+                </div>
+                <div class="code-header">💻 R 实战 · 设置熔断阈值</div>
+                <pre><code>set.seed(77)
 requests <- runif(100, 1000, 10000)
 memory <- 20 + 0.007 * requests + rnorm(100, 0, 4)
 
@@ -943,51 +1263,87 @@ summary(model)  # R² ≈ 0.95，极好的模型
 new_data <- data.frame(requests = 8500)
 predict(model, newdata = new_data, interval = "prediction")
 # 95% 预测区间上限：88.2%</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 有准备的架构师</span></span>
-                <p>“内存安全红线是 90%。根据预测区间的上限，<span class="narrative-highlight">并发数绝对不能超过 8700</span>。我把网关熔断阈值定在 8500，留出安全余量。”</p>
-                <p>他写下了新的熔断规则。“<span class="narrative-highlight">这是我第一次真正从数据出发做容量规划，而不是靠直觉拍脑袋。</span>”</p>
             </div>
         </section>
 
-        <!-- ===== 第八章 ===== -->
-        <section id="ch8" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">🕳️</span> 第八章</span>
-            <h2 class="chapter-title">共犯的<span class="highlight">背叛</span></h2>
-            <div class="chapter-epigraph">
-                “多重共线性是模型的背叛——你以为在增强，其实在削弱。”
-                <span class="source"><i class="fa-regular fa-user"></i> 戴维·克莱因鲍姆 (David Kleinbaum) — 流行病学与统计学家</span>
+        <!-- ===== CHAPTER 8 ===== -->
+        <section id="ch8" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">🕳️</span> Chapter 8</span>
+            <h2 class="chapter-title">The <span class="highlight">Betrayal</span> of Accomplices</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 盲目自信的架构师</span></span>
-                <p>“Stella，为了让模型更准，我把所有监控维度都塞进去了——并发数、线程数、CPU、GC 频率。<span class="narrative-highlight">但模型反而崩溃了，并发数的 p 值变成了 0.45！</span>”</p>
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “Multicollinearity is the betrayal of the model — you think you're strengthening, but you're weakening.”
+                    <span class="source"><i class="fa-regular fa-user"></i> David Kleinbaum — Epidemiologist and Statistician</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Overconfident Architect</span></span>
+                    <p>"Stella, to make the model more accurate, I stuffed in every monitoring dimension — concurrency, threads, CPU, GC frequency. <span class="narrative-highlight">But the model crashed — the p-value for concurrency became 0.45!</span>"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Mentor Seeing Through Everything</span></span>
+                    <p>"You've been ambushed by <span class="narrative-highlight">multicollinearity</span>. When two variables are highly correlated — like concurrency and threads, which grow proportionally — the model can't determine which one is truly contributing predictive power. <span class="narrative-highlight">It's like hiring two identical programmers — you can't tell who wrote the good code.</span>"</p>
+                </div>
+                <h3>📌 Lesson 8: The Courage to Cut Redundancy <span class="lesson-tag">Core Insight</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 Variance Inflation Factor</span>
+                    \[
+                    VIF_i = \frac{1}{1 - R_i^2}
+                    \]
+                    <div class="math-fallback">VIFᵢ = 1 / (1 - Rᵢ²)</div>
+                </div>
+                <ul>
+                    <li>\(VIF > 5\): 🟡 Significant multicollinearity concern</li>
+                    <li>\(VIF > 10\): 🔴 Severe multicollinearity — must remove!</li>
+                </ul>
+                <div class="code-header">💻 R in Action · Uncovering the Accomplice</div>
+                <pre><code>set.seed(66)
+req <- runif(100, 1000, 10000)
+threads <- req * 0.05 + rnorm(100, 0, 10)  # Highly correlated with req!
+cpu <- req * 0.009 + rnorm(100, 0, 2)     # Also highly correlated with req!
+gc <- runif(100, 1, 20)                   # Independent variable
+
+memory <- 15 + 0.005 * req + 0.3 * gc + rnorm(100, 0, 3)
+df <- data.frame(memory, req, threads, cpu, gc)
+
+bad_model <- lm(memory ~ req + threads + cpu + gc, data = df)
+summary(bad_model)  # req's p-value becomes insignificant
+
+library(car)
+vif(bad_model)  # req and threads have VIF > 40!</code></pre>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 洞察一切的导师</span></span>
-                <p>“你被<span class="narrative-highlight">多重共线性</span>暗算了。当两个变量高度相关时——比如并发数和线程数几乎同比例增长——模型无法判断谁真正贡献了预测力。<span class="narrative-highlight">这就像招了两个完全一样的程序员，你分不清谁写了好代码。</span>”</p>
-            </div>
-
-            <h3>📌 第八课：砍掉冗余的勇气 <span class="lesson-tag">核心洞察</span></h3>
-            <p>苏然写下了诊断公式：“用 <span class="narrative-highlight">方差膨胀因子 (VIF)</span> 来检测共犯。”</p>
-
-            <div class="math-block">
-                <span class="math-label">📐 方差膨胀因子</span>
-                \[
-                VIF_i = \frac{1}{1 - R_i^2}
-                \]
-                <div class="math-fallback">VIFᵢ = 1 / (1 - Rᵢ²)</div>
-            </div>
-
-            <ul>
-                <li>\(VIF > 5\)：🟡 存在明显的共线性担忧</li>
-                <li>\(VIF > 10\)：🔴 严重共线性，必须剔除！</li>
-            </ul>
-
-            <div class="code-header">💻 R 实战 · 揪出内鬼</div>
-            <pre><code>set.seed(66)
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “多重共线性是模型的背叛——你以为在增强，其实在削弱。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 戴维·克莱因鲍姆 (David Kleinbaum)</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 盲目自信的架构师</span></span>
+                    <p>“Stella，为了让模型更准，我把所有监控维度都塞进去了——并发数、线程数、CPU、GC 频率。<span class="narrative-highlight">但模型反而崩溃了，并发数的 p 值变成了 0.45！</span>”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 洞察一切的导师</span></span>
+                    <p>“你被<span class="narrative-highlight">多重共线性</span>暗算了。当两个变量高度相关时——比如并发数和线程数几乎同比例增长——模型无法判断谁真正贡献了预测力。<span class="narrative-highlight">这就像招了两个完全一样的程序员，你分不清谁写了好代码。</span>”</p>
+                </div>
+                <h3>📌 第八课：砍掉冗余的勇气 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="math-block">
+                    <span class="math-label">📐 方差膨胀因子</span>
+                    \[
+                    VIF_i = \frac{1}{1 - R_i^2}
+                    \]
+                    <div class="math-fallback">VIFᵢ = 1 / (1 - Rᵢ²)</div>
+                </div>
+                <ul>
+                    <li>\(VIF > 5\)：🟡 存在明显的共线性担忧</li>
+                    <li>\(VIF > 10\)：🔴 严重共线性，必须剔除！</li>
+                </ul>
+                <div class="code-header">💻 R 实战 · 揪出内鬼</div>
+                <pre><code>set.seed(66)
 req <- runif(100, 1000, 10000)
 threads <- req * 0.05 + rnorm(100, 0, 10)  # 与 req 高度相关！
 cpu <- req * 0.009 + rnorm(100, 0, 2)     # 也与 req 高度相关！
@@ -1001,116 +1357,160 @@ summary(bad_model)  # req 的 p 值变得不显著
 
 library(car)
 vif(bad_model)  # req 和 threads 的 VIF > 40！</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 领悟奥卡姆剃刀</span></span>
-                <p>“<span class="narrative-highlight">奥卡姆剃刀——如无必要，勿增实体。</span>我应该剔除冗余的线程数和 CPU，只保留核心的并发数和独立的 GC。”</p>
-                <p>他重构了模型，<span class="narrative-highlight">再次看到了 p < 0.001</span>。“<span class="narrative-highlight">少即是多。这是我今天学到的最贵的一课。</span>”</p>
             </div>
         </section>
 
-        <!-- ===== 第九章 ===== -->
-        <section id="ch9" class="chapter-card">
-            <span class="chapter-meta"><span class="chapter-icon">💀</span> 第九章</span>
-            <h2 class="chapter-title">灵魂的<span class="highlight">拷问</span></h2>
-            <div class="chapter-epigraph">
-                “模型不是真相的终点，而是提问的起点。”
-                <span class="source"><i class="fa-regular fa-user"></i> 乔治·博克斯 (George Box) — 统计学巨匠</span>
+        <!-- ===== CHAPTER 9 ===== -->
+        <section id="ch9" class="chapter-card lang-en-active">
+            <span class="chapter-meta"><span class="chapter-icon">💀</span> Chapter 9</span>
+            <h2 class="chapter-title">The <span class="highlight">Interrogation</span> of the Soul</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 被模型背叛的架构师</span></span>
-                <p>“Stella，精简后的模型在正常区间预测得很准。但在凌晨低并发时，<span class="narrative-highlight">它居然预测出了负数内存！这要是上线，警报就炸了。</span>”</p>
-            </div>
-
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 最后的拷问</span></span>
-                <p>“Shawn，这就是为什么我们永远不能盲目相信模型。<span class="narrative-highlight">在把模型部署到生产之前，必须通过 LINE 四大假设的残差审判。</span>如果这些假设不成立，你的模型随时会崩塌。”</p>
-            </div>
-
-            <h3>📌 第九课：永远不要相信未经验证的模型 <span class="lesson-tag">核心洞察</span></h3>
-            <div class="blackboard">
-                <h4>⚖️ LINE 规则 · 模型的四道防线</h4>
-                <ul>
-                    <li><b>L</b>inearity — 因变量与自变量之间确实存在线性关系</li>
-                    <li><b>I</b>ndependence — 残差之间相互独立，不存在自相关</li>
-                    <li><b>N</b>ormality — 残差服从期望为 0 的正态分布</li>
-                    <li><b>E</b>qual Variance — 残差的方差不随自变量变化而改变</li>
-                </ul>
-            </div>
-
-            <div class="code-header">💻 R 实战 · 四大诊断图</div>
-            <pre><code># 四张图，拷问模型的灵魂
+            <div class="lang-en">
+                <div class="chapter-epigraph">
+                    “The model is not the end of truth, but the beginning of questioning.”
+                    <span class="source"><i class="fa-regular fa-user"></i> George Box — Statistician</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Architect Betrayed by the Model</span></span>
+                    <p>"Stella, the simplified model predicts accurately in normal ranges. But during low-concurrency hours at midnight, <span class="narrative-highlight">it predicted negative memory usage! If we deploy this, alarms will go off everywhere.</span>"</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· The Final Interrogation</span></span>
+                    <p>"Shawn, this is why we can never blindly trust a model. <span class="narrative-highlight">Before deploying a model to production, it must pass the LINE four-assumption residual interrogation.</span> If these assumptions fail, your model will collapse at any moment."</p>
+                </div>
+                <h3>📌 Lesson 9: Never Trust an Unvalidated Model <span class="lesson-tag">Core Insight</span></h3>
+                <div class="blackboard">
+                    <h4>⚖️ The LINE Rules · The Model's Four Defenses</h4>
+                    <ul>
+                        <li><b>L</b>inearity — There is indeed a linear relationship between dependent and independent variables</li>
+                        <li><b>I</b>ndependence — Residuals are independent, with no autocorrelation</li>
+                        <li><b>N</b>ormality — Residuals follow a normal distribution with mean 0</li>
+                        <li><b>E</b>qual Variance — Residual variance does not change with independent variables</li>
+                    </ul>
+                </div>
+                <div class="code-header">💻 R in Action · The Four Diagnostic Plots</div>
+                <pre><code># Four plots, interrogating the model's soul
 par(mfrow = c(2, 2))
 plot(model)</code></pre>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 成熟的思考者</span></span>
-                <p>四张图跃然纸上：Residuals vs Fitted、Normal Q-Q、Scale-Location、Residuals vs Leverage。</p>
-                <p>“红线在零点附近均匀分布，Q-Q 图几乎是一条直线……<span class="narrative-highlight">这说明在绝大多数运行区间内，这个模型的数学灵魂是健康、坚实的。</span>”</p>
-                <p>他指着图的边缘：“但在低并发区间——也就是我试图预测负数的地方——<span class="narrative-highlight">数据点稀疏，模型超出训练范围，所以失效了。</span>”</p>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 最后的教诲</span></span>
-                <p>“<span class="narrative-highlight">你终于明白了。模型不是万能的，它只是工具。你必须知道它的边界在哪里，什么时候该相信它，什么时候该怀疑它。</span>”</p>
-                <p>“<span class="narrative-highlight">真正的统计学智慧，不是知道怎么建模型，而是知道模型什么时候会骗你。</span>”</p>
+            <div class="lang-zh">
+                <div class="chapter-epigraph">
+                    “模型不是真相的终点，而是提问的起点。”
+                    <span class="source"><i class="fa-regular fa-user"></i> 乔治·博克斯 (George Box)</span>
+                </div>
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 被模型背叛的架构师</span></span>
+                    <p>“Stella，精简后的模型在正常区间预测得很准。但在凌晨低并发时，<span class="narrative-highlight">它居然预测出了负数内存！这要是上线，警报就炸了。</span>”</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 最后的拷问</span></span>
+                    <p>“Shawn，这就是为什么我们永远不能盲目相信模型。<span class="narrative-highlight">在把模型部署到生产之前，必须通过 LINE 四大假设的残差审判。</span>如果这些假设不成立，你的模型随时会崩塌。”</p>
+                </div>
+                <h3>📌 第九课：永远不要相信未经验证的模型 <span class="lesson-tag">核心洞察</span></h3>
+                <div class="blackboard">
+                    <h4>⚖️ LINE 规则 · 模型的四道防线</h4>
+                    <ul>
+                        <li><b>L</b>inearity — 因变量与自变量之间确实存在线性关系</li>
+                        <li><b>I</b>ndependence — 残差之间相互独立，不存在自相关</li>
+                        <li><b>N</b>ormality — 残差服从期望为 0 的正态分布</li>
+                        <li><b>E</b>qual Variance — 残差的方差不随自变量变化而改变</li>
+                    </ul>
+                </div>
+                <div class="code-header">💻 R 实战 · 四大诊断图</div>
+                <pre><code># 四张图，拷问模型的灵魂
+par(mfrow = c(2, 2))
+plot(model)</code></pre>
             </div>
         </section>
 
-        <!-- ===== 尾声 ===== -->
-        <section id="epilogue" class="chapter-card" style="background: #f8f4ee; border-color: #d6cec4;">
-            <span class="chapter-meta"><span class="chapter-icon">🌅</span> 尾声</span>
-            <h2 class="chapter-title">新的<span class="highlight">黎明</span></h2>
-
-            <div class="story-block">
-                <span class="character-name">林川 <span class="title-tag">· 蜕变的架构师</span></span>
-                <p>三周后的清晨。林川站在办公室窗前，俯瞰城市的晨光。手机显示：支付网关 P99 延迟稳定在 200ms 以内，用户投诉率下降了 76%。</p>
-                <p>他回头看了一眼白板——上面密密麻麻写满了公式、分布图和代码片段。过去三周，他从一个只会看平均值的工程师，变成了一个能熟练运用置信区间、方差分析、回归诊断的架构师。</p>
+        <!-- ===== EPILOGUE ===== -->
+        <section id="epilogue" class="chapter-card lang-en-active" style="background: #f8f4ee; border-color: #d6cec4;">
+            <span class="chapter-meta"><span class="chapter-icon">🌅</span> Epilogue</span>
+            <h2 class="chapter-title">A <span class="highlight">New</span> Dawn</h2>
+            <div class="chapter-lang-toggle">
+                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
+                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
             </div>
 
-            <div class="story-block stella">
-                <span class="character-name">苏然 <span class="title-tag">· 欣慰的导师</span></span>
-                <p>苏然走进办公室，手里端着两杯咖啡。“看起来，大促挺过来了。”</p>
-                <p>“挺过来了。”林川接过咖啡，“<span class="narrative-highlight">而且我第一次感觉到，我不是在靠运气做事，而是在靠理解做事。</span>”</p>
+            <div class="lang-en">
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Transformed Architect</span></span>
+                    <p>Three weeks later, early morning. Lin Chuan stood at the office window, overlooking the city's morning light. His phone displayed: Payment gateway P99 latency stabilized under 200ms, user complaint rate down 76%.</p>
+                    <p>He turned and looked at the whiteboard — covered with formulas, distribution diagrams, and code snippets. Over the past three weeks, he had transformed from an engineer who only looked at averages into an architect who could skillfully wield confidence intervals, ANOVA, and regression diagnostics.</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">Su Ran <span class="title-tag">· Proud Mentor</span></span>
+                    <p>Su Ran walked into the office with two cups of coffee. "Looks like the big sales event went well."</p>
+                    <p>"It did." Lin Chuan took the coffee. "<span class="narrative-highlight">And for the first time, I feel like I'm not operating on luck, but on understanding.</span>"</p>
+                </div>
+                <div class="blackboard" style="border-color: var(--gold);">
+                    <h4>📚 The Path You've Walked · Ten Lessons in Statistical Thinking</h4>
+                    <ul>
+                        <li><span class="narrative-highlight">01 · Distribution Matters More Than Average</span> — Don't be deceived by the mean</li>
+                        <li><span class="narrative-highlight">02 · Probability Is the Engineer's Invisible Tool</span> — Randomness is the nature of the world</li>
+                        <li><span class="narrative-highlight">03 · Seeing the Whole with Samples</span> — The CLT is your mathematical guarantee</li>
+                        <li><span class="narrative-highlight">04 · Hypothesis Testing Is a Trial, Not a Lottery</span> — Beware of p-hacking</li>
+                        <li><span class="narrative-highlight">05 · ANOVA Is a Global Judgment</span> — Ask the whole question first, then the details</li>
+                        <li><span class="narrative-highlight">06 · The World Is Interactive</span> — There's no universal optimal solution</li>
+                        <li><span class="narrative-highlight">07 · Drawing the Line of Causality</span> — Linear regression is where prediction begins</li>
+                        <li><span class="narrative-highlight">08 · The Courage to Cut Redundancy</span> — Multicollinearity is the model's betrayal</li>
+                        <li><span class="narrative-highlight">09 · Never Trust an Unvalidated Model</span> — The LINE four defenses</li>
+                        <li><span class="narrative-highlight">10 · Statistics Isn't Math — It's a Way of Thinking</span> — Understanding the world through data</li>
+                    </ul>
+                </div>
+                <p style="text-align: center; margin-top: 2rem; color: var(--gold); font-size: 1.2rem; letter-spacing: 0.3em;">
+                    ✦ The End · But Learning Never Ends ✦
+                </p>
             </div>
 
-            <p>苏然笑了笑：“你知道最有趣的是什么吗？<span class="narrative-highlight">你学的那些工具——t 检验、ANOVA、线性回归、残差诊断——它们已经有上百年的历史了。但它们依然在定义现代工程师的工作方式。</span>”</p>
-
-            <div class="blackboard" style="border-color: var(--gold);">
-                <h4>📚 你走过的路 · 统计思维的十课</h4>
-                <ul>
-                    <li><span class="narrative-highlight">01 · 分布比平均值更重要</span> — 不要被平均数欺骗</li>
-                    <li><span class="narrative-highlight">02 · 概率是工程师的隐形工具</span> — 随机是世界的本质</li>
-                    <li><span class="narrative-highlight">03 · 用样本看见全貌</span> — 中央极限定理是你的底气</li>
-                    <li><span class="narrative-highlight">04 · 假设检验是审判，不是彩票</span> — 警惕 p-hacking</li>
-                    <li><span class="narrative-highlight">05 · 方差分析是全局审判</span> — 先问整体，再问细节</li>
-                    <li><span class="narrative-highlight">06 · 世界是交互的</span> — 没有普适的最优解</li>
-                    <li><span class="narrative-highlight">07 · 画出因果之线</span> — 线性回归是预测的起点</li>
-                    <li><span class="narrative-highlight">08 · 砍掉冗余的勇气</span> — 多重共线性是模型的背叛</li>
-                    <li><span class="narrative-highlight">09 · 永远不要相信未经验证的模型</span> — LINE 四道防线</li>
-                    <li><span class="narrative-highlight">10 · 统计学不是数学，是思维方式</span> — 用数据理解世界</li>
-                </ul>
+            <div class="lang-zh">
+                <div class="story-block">
+                    <span class="character-name">林川 <span class="title-tag">· 蜕变的架构师</span></span>
+                    <p>三周后的清晨。林川站在办公室窗前，俯瞰城市的晨光。手机显示：支付网关 P99 延迟稳定在 200ms 以内，用户投诉率下降了 76%。</p>
+                    <p>他回头看了一眼白板——上面密密麻麻写满了公式、分布图和代码片段。过去三周，他从一个只会看平均值的工程师，变成了一个能熟练运用置信区间、方差分析、回归诊断的架构师。</p>
+                </div>
+                <div class="story-block stella">
+                    <span class="character-name">苏然 <span class="title-tag">· 欣慰的导师</span></span>
+                    <p>苏然走进办公室，手里端着两杯咖啡。“看起来，大促挺过来了。”</p>
+                    <p>“挺过来了。”林川接过咖啡，“<span class="narrative-highlight">而且我第一次感觉到，我不是在靠运气做事，而是在靠理解做事。</span>”</p>
+                </div>
+                <div class="blackboard" style="border-color: var(--gold);">
+                    <h4>📚 你走过的路 · 统计思维的十课</h4>
+                    <ul>
+                        <li><span class="narrative-highlight">01 · 分布比平均值更重要</span> — 不要被平均数欺骗</li>
+                        <li><span class="narrative-highlight">02 · 概率是工程师的隐形工具</span> — 随机是世界的本质</li>
+                        <li><span class="narrative-highlight">03 · 用样本看见全貌</span> — 中央极限定理是你的底气</li>
+                        <li><span class="narrative-highlight">04 · 假设检验是审判，不是彩票</span> — 警惕 p-hacking</li>
+                        <li><span class="narrative-highlight">05 · 方差分析是全局审判</span> — 先问整体，再问细节</li>
+                        <li><span class="narrative-highlight">06 · 世界是交互的</span> — 没有普适的最优解</li>
+                        <li><span class="narrative-highlight">07 · 画出因果之线</span> — 线性回归是预测的起点</li>
+                        <li><span class="narrative-highlight">08 · 砍掉冗余的勇气</span> — 多重共线性是模型的背叛</li>
+                        <li><span class="narrative-highlight">09 · 永远不要相信未经验证的模型</span> — LINE 四道防线</li>
+                        <li><span class="narrative-highlight">10 · 统计学不是数学，是思维方式</span> — 用数据理解世界</li>
+                    </ul>
+                </div>
+                <p style="text-align: center; margin-top: 2rem; color: var(--gold); font-size: 1.2rem; letter-spacing: 0.3em;">
+                    ✦ 全书完 · 但学习永不结束 ✦
+                </p>
             </div>
-
-            <p>林川看着窗外，城市的轮廓在阳光下清晰分明。“<span class="narrative-highlight">这条路没有终点。机器学习、贝叶斯、因果推断……还有太多要学。</span>”</p>
-            <p>苏然举起咖啡杯：“<span class="narrative-highlight">那就继续走。统计学是一片广阔的荒野，而你刚刚看到了第一缕曙光。</span>”</p>
-            <p style="text-align: center; margin-top: 2rem; color: var(--gold); font-size: 1.2rem; letter-spacing: 0.3em;">
-                ✦ 全书完 · 但学习永不结束 ✦
-            </p>
         </section>
     </main>
 
-    <!-- ===== 底部语音阅读栏 ===== -->
+    <!-- ===== Audio Reader Bar ===== -->
     <div class="reader-bar" id="readerBar">
         <div class="chapter-indicator" id="chapterIndicator">
-            <i class="fa-regular fa-book-open"></i> <strong id="currentChapterName">楔子</strong>
+            <i class="fa-regular fa-book-open"></i> <strong id="currentChapterName">Prologue</strong>
         </div>
         <div class="reader-controls">
-            <button id="prevChapterBtn" title="上一章"><i class="fa-solid fa-chevron-left"></i></button>
-            <button id="playBtn" class="primary-btn" title="朗读/暂停"><i class="fa-solid fa-play"></i></button>
-            <button id="nextChapterBtn" title="下一章"><i class="fa-solid fa-chevron-right"></i></button>
-            <button id="stopBtn" title="停止"><i class="fa-solid fa-stop"></i></button>
+            <button id="prevChapterBtn" title="Previous Chapter"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="playBtn" class="primary-btn" title="Play/Pause"><i class="fa-solid fa-play"></i></button>
+            <button id="nextChapterBtn" title="Next Chapter"><i class="fa-solid fa-chevron-right"></i></button>
+            <button id="stopBtn" title="Stop"><i class="fa-solid fa-stop"></i></button>
         </div>
         <div class="reader-progress">
             <input type="range" id="progressSlider" min="0" max="100" value="0" step="0.5">
@@ -1129,19 +1529,42 @@ plot(model)</code></pre>
     </div>
 
     <script>
+        // Chapter language toggle
+        function toggleChapterLang(btn) {
+            const parentCard = btn.closest('.chapter-card');
+            const lang = btn.dataset.lang;
+
+            // Update button states
+            const buttons = parentCard.querySelectorAll('.chapter-lang-toggle button');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Update card class
+            parentCard.classList.remove('lang-en-active', 'lang-zh-active');
+            parentCard.classList.add('lang-' + lang + '-active');
+
+            // Update chapter indicator in reader bar if this is the active chapter
+            const isActive = parentCard.classList.contains('active-reading');
+            if (isActive) {
+                const chapterName = parentCard.querySelector('.chapter-meta')?.textContent?.trim() || '';
+                document.getElementById('currentChapterName').textContent = chapterName;
+            }
+        }
+
+        // Reader functionality
         (function() {
             const chapters = [
-                { id: 'prologue', label: '楔子' },
-                { id: 'ch1', label: '第一章' },
-                { id: 'ch2', label: '第二章' },
-                { id: 'ch3', label: '第三章' },
-                { id: 'ch4', label: '第四章' },
-                { id: 'ch5', label: '第五章' },
-                { id: 'ch6', label: '第六章' },
-                { id: 'ch7', label: '第七章' },
-                { id: 'ch8', label: '第八章' },
-                { id: 'ch9', label: '第九章' },
-                { id: 'epilogue', label: '尾声' }
+                { id: 'prologue', label: 'Prologue' },
+                { id: 'ch1', label: 'Chapter 1' },
+                { id: 'ch2', label: 'Chapter 2' },
+                { id: 'ch3', label: 'Chapter 3' },
+                { id: 'ch4', label: 'Chapter 4' },
+                { id: 'ch5', label: 'Chapter 5' },
+                { id: 'ch6', label: 'Chapter 6' },
+                { id: 'ch7', label: 'Chapter 7' },
+                { id: 'ch8', label: 'Chapter 8' },
+                { id: 'ch9', label: 'Chapter 9' },
+                { id: 'epilogue', label: 'Epilogue' }
             ];
 
             const playBtn = document.getElementById('playBtn');
@@ -1162,15 +1585,29 @@ plot(model)</code></pre>
             let totalChunks = 0;
             let isPaused = false;
 
+            function getActiveLanguage(cardElement) {
+                if (cardElement.classList.contains('lang-zh-active')) return 'zh';
+                return 'en';
+            }
+
             function extractTextFromChapter(cardElement) {
+                const lang = getActiveLanguage(cardElement);
                 const clone = cardElement.cloneNode(true);
+                // Keep only the active language version
+                const otherLang = lang === 'zh' ? 'lang-en' : 'lang-zh';
+                clone.querySelectorAll('.' + otherLang).forEach(el => el.remove());
+                clone.querySelectorAll('.lang-zh, .lang-en').forEach(el => {
+                    if (!el.classList.contains('lang-' + lang)) el.remove();
+                });
+
                 const removeSelectors = [
                     '.code-header', 'pre', '.blackboard', 'table',
                     '.chapter-meta', 'h3', 'h4', '.chapter-epigraph',
                     'script', 'style', '.MathJax', '.mathjax',
                     'mjx-container', '.math', '.katex', '.latex',
                     '.math-block', '.math-fallback', '.figure-container',
-                    '.fa-solid', '.fa-regular', '.fa-brands', 'i', 'svg'
+                    '.fa-solid', '.fa-regular', '.fa-brands', 'i', 'svg',
+                    '.chapter-lang-toggle'
                 ];
                 removeSelectors.forEach(sel => {
                     clone.querySelectorAll(sel).forEach(el => el.remove());
@@ -1179,7 +1616,7 @@ plot(model)</code></pre>
                 let rawText = clone.textContent || '';
                 rawText = rawText.replace(/\s+/g, ' ').trim();
                 const sentences = rawText.split(/[。！？；\.!\?;]+/).filter(s => s.trim().length > 0);
-                return sentences.map(s => s.trim() + '。');
+                return sentences.map(s => s.trim() + (lang === 'zh' ? '。' : '.'));
             }
 
             function loadChapter(index) {
@@ -1187,7 +1624,10 @@ plot(model)</code></pre>
                 const cardElement = document.getElementById(cardId);
                 if (!cardElement) return false;
 
-                currentChapterName.textContent = chapters[index].label;
+                const lang = getActiveLanguage(cardElement);
+                const label = cardElement.querySelector('.chapter-meta')?.textContent?.trim() || chapters[index].label;
+                currentChapterName.textContent = label;
+
                 textChunks = extractTextFromChapter(cardElement);
                 totalChunks = textChunks.length;
                 currentChunkIndex = 0;
@@ -1227,8 +1667,10 @@ plot(model)</code></pre>
 
                 if (currentUtterance) speechSynth.cancel();
 
+                const cardElement = document.getElementById(chapters[currentChapterIndex].id);
+                const lang = getActiveLanguage(cardElement);
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'zh-CN';
+                utterance.lang = lang === 'zh' ? 'zh-CN' : 'en-US';
                 utterance.rate = parseFloat(speedSelect.value) || 1.0;
                 utterance.pitch = 1.0;
                 utterance.volume = 1;
