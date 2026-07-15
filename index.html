@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,6 +89,52 @@
             max-width: 1000px;
         }
 
+        .lang-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .lang-tabs button {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.2s ease;
+            font-family: -apple-system, sans-serif;
+        }
+        .lang-tabs button:hover { background: rgba(122, 90, 75, 0.08); }
+        .lang-tabs button.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(122, 90, 75, 0.2);
+        }
+
+        .lang-zh { display: none; }
+        .lang-en { display: block; }
+        html[data-lang="zh"] .lang-zh { display: block; }
+        html[data-lang="zh"] .lang-en { display: none; }
+        html[data-lang="en"] .lang-zh { display: none; }
+        html[data-lang="en"] .lang-en { display: block; }
+
+        .book-header .lang-zh, .book-header .lang-en { display: block; }
+        html[data-lang="zh"] .book-header .lang-zh { display: block; }
+        html[data-lang="zh"] .book-header .lang-en { display: none; }
+        html[data-lang="en"] .book-header .lang-zh { display: none; }
+        html[data-lang="en"] .book-header .lang-en { display: block; }
+
+        .chapter-card .lang-zh, .chapter-card .lang-en { display: block; }
+        html[data-lang="zh"] .chapter-card .lang-zh { display: block; }
+        html[data-lang="zh"] .chapter-card .lang-en { display: none; }
+        html[data-lang="en"] .chapter-card .lang-zh { display: none; }
+        html[data-lang="en"] .chapter-card .lang-en { display: block; }
+
         .book-header {
             margin-bottom: 4rem;
             border-bottom: 2px solid var(--border-color);
@@ -141,7 +187,6 @@
             box-shadow: 0 0 0 2px var(--gold), 0 8px 30px rgba(184, 134, 11, 0.1);
             transform: translateY(-2px);
         }
-
         .chapter-meta {
             color: var(--primary);
             font-size: 0.75rem;
@@ -152,7 +197,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            flex-wrap: wrap;
         }
         .chapter-meta .chapter-icon { font-size: 1rem; }
         .chapter-title {
@@ -163,54 +207,6 @@
             line-height: 1.3;
         }
         .chapter-title .highlight { color: var(--gold); }
-
-        /* Chapter language toggle buttons */
-        .chapter-lang-toggle {
-            display: flex;
-            gap: 0.5rem;
-            margin: 1rem 0 1.5rem 0;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .chapter-lang-toggle button {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            padding: 0.3rem 1.2rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: -apple-system, sans-serif;
-        }
-        .chapter-lang-toggle button:hover {
-            background: rgba(122, 90, 75, 0.08);
-        }
-        .chapter-lang-toggle button.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-        }
-        .chapter-lang-toggle button .badge {
-            font-size: 0.6rem;
-            opacity: 0.6;
-        }
-        .chapter-lang-toggle button.active .badge { opacity: 1; }
-
-        /* Language content - default: English visible, Chinese hidden */
-        .lang-zh { display: none; }
-        .lang-en { display: block; }
-        .chapter-card.lang-zh-active .lang-zh { display: block; }
-        .chapter-card.lang-zh-active .lang-en { display: none; }
-        .chapter-card.lang-en-active .lang-zh { display: none; }
-        .chapter-card.lang-en-active .lang-en { display: block; }
-
-        /* Default for all chapters: English */
-        .chapter-card { --default-lang: en; }
-        .chapter-card .lang-zh { display: none; }
-        .chapter-card .lang-en { display: block; }
-
         .chapter-epigraph {
             color: var(--text-muted);
             font-style: italic;
@@ -230,7 +226,6 @@
             letter-spacing: 0.05em;
         }
         .chapter-epigraph .source i { margin-right: 0.3rem; }
-
         .story-block {
             background: #f5f0e8;
             border-left: 4px solid var(--primary);
@@ -364,8 +359,14 @@
             border: 1px solid var(--border-color);
             background: #f5f0e8;
             text-align: center;
+            padding: 1rem;
         }
-        .figure-container img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
         .figure-container .fig-caption {
             padding: 0.8rem 1.5rem;
             color: var(--text-muted);
@@ -373,6 +374,7 @@
             border-top: 1px solid var(--border-color);
             background: rgba(255,255,255,0.3);
             font-style: italic;
+            margin-top: 0.5rem;
         }
         .blackboard {
             background: #f5f0e8;
@@ -497,7 +499,6 @@
             .reader-controls button { width: 30px; height: 30px; font-size: 0.7rem; }
             .reader-controls button.primary-btn { width: 36px; }
             .sidebar h1 { font-size: 1rem; }
-            .chapter-lang-toggle button { padding: 0.2rem 0.8rem; font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -505,39 +506,45 @@
 
     <aside class="sidebar">
         <h1>📖 The Redemption of Statistics <small>· A Data Science Novel</small></h1>
-        <ul class="sidebar-menu">
-            <li><a href="#prologue" class="active"><span class="chapter-num">00</span> Prologue</a></li>
-            <li><a href="#ch1"><span class="chapter-num">01</span> The Lie of Averages</a></li>
-            <li><a href="#ch2"><span class="chapter-num">02</span> The Secret Language of Traffic</a></li>
-            <li><a href="#ch3"><span class="chapter-num">03</span> Seeing the Whole from the Part</a></li>
-            <li><a href="#ch4"><span class="chapter-num">04</span> The Trap of Experiments</a></li>
-            <li><a href="#ch5"><span class="chapter-num">05</span> The Battle of Many</a></li>
-            <li><a href="#ch6"><span class="chapter-num">06</span> When Two Worlds Collide</a></li>
-            <li><a href="#ch7"><span class="chapter-num">07</span> The Power to See the Future</a></li>
-            <li><a href="#ch8"><span class="chapter-num">08</span> The Betrayal of Accomplices</a></li>
-            <li><a href="#ch9"><span class="chapter-num">09</span> The Interrogation of the Soul</a></li>
-            <li><a href="#epilogue"><span class="chapter-num">10</span> Epilogue</a></li>
+        <div class="lang-tabs">
+            <button class="active" data-lang="en">English 🇬🇧</button>
+            <button data-lang="zh">中文 🇨🇳</button>
+        </div>
+        <ul class="sidebar-menu" id="sidebarMenu">
+            <li><a href="#prologue" class="active"><span class="chapter-num">00</span> <span class="lang-en">Prologue</span><span class="lang-zh">楔子</span></a></li>
+            <li><a href="#ch1"><span class="chapter-num">01</span> <span class="lang-en">The Lie of Averages</span><span class="lang-zh">平均值的谎言</span></a></li>
+            <li><a href="#ch2"><span class="chapter-num">02</span> <span class="lang-en">The Secret Language of Traffic</span><span class="lang-zh">流量的秘密语言</span></a></li>
+            <li><a href="#ch3"><span class="chapter-num">03</span> <span class="lang-en">Seeing the Whole from the Part</span><span class="lang-zh">从局部看见整体</span></a></li>
+            <li><a href="#ch4"><span class="chapter-num">04</span> <span class="lang-en">The Trap of Experiments</span><span class="lang-zh">实验的陷阱</span></a></li>
+            <li><a href="#ch5"><span class="chapter-num">05</span> <span class="lang-en">The Battle of Many</span><span class="lang-zh">多人的对决</span></a></li>
+            <li><a href="#ch6"><span class="chapter-num">06</span> <span class="lang-en">When Two Worlds Collide</span><span class="lang-zh">当两个世界碰撞</span></a></li>
+            <li><a href="#ch7"><span class="chapter-num">07</span> <span class="lang-en">The Power to See the Future</span><span class="lang-zh">预见未来的能力</span></a></li>
+            <li><a href="#ch8"><span class="chapter-num">08</span> <span class="lang-en">The Betrayal of Accomplices</span><span class="lang-zh">共犯的背叛</span></a></li>
+            <li><a href="#ch9"><span class="chapter-num">09</span> <span class="lang-en">The Interrogation of the Soul</span><span class="lang-zh">灵魂的拷问</span></a></li>
+            <li><a href="#epilogue"><span class="chapter-num">10</span> <span class="lang-en">Epilogue</span><span class="lang-zh">尾声</span></a></li>
         </ul>
     </aside>
 
     <main class="main-content">
         <!-- ===== Book Title ===== -->
-        <header class="book-header" id="prologue">
-            <h1>The <span>Redemption</span> of Statistics</h1>
-            <div class="subtitle">— A Data Science Novel —</div>
-            <div class="tagline">✦ Bridging microservices, monitoring, logging, and modern statistics ✦</div>
+        <header class="book-header">
+            <div class="lang-en">
+                <h1>The <span>Redemption</span> of Statistics</h1>
+                <div class="subtitle">— A Data Science Novel —</div>
+                <div class="tagline">✦ Bridging microservices, monitoring, logging, and modern statistics ✦</div>
+            </div>
+            <div class="lang-zh">
+                <h1>统计学的<span>救赎</span></h1>
+                <div class="subtitle">—— 一部关于数据、谎言与真相的工程师小说</div>
+                <div class="tagline">✦ 打通微服务 · 监控日志 · 现代统计学 ✦</div>
+            </div>
         </header>
 
         <!-- ===== PROLOGUE ===== -->
-        <section id="prologue" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🌙</span> Prologue</span>
-            <h2 class="chapter-title">Midnight Alert</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="prologue" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🌙</span> Prologue</span>
+                <h2 class="chapter-title">Midnight Alert</h2>
                 <div class="chapter-epigraph">
                     “All models are wrong, but some are useful.”
                     <span class="source"><i class="fa-regular fa-user"></i> George Box — Statistician</span>
@@ -564,8 +571,9 @@
                 <p>Su Ran smiled slightly: "Let's start from the very basics — <span class="narrative-highlight">Statistics isn't math. It's a way of thinking about the world through data.</span> And our world is full of lies, biases, and hidden truths."</p>
                 <p>Outside the window, the city's morning light was rising. A journey about data, statistics, and redemption had just begun.</p>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🌙</span> 楔子</span>
+                <h2 class="chapter-title">深夜的报警</h2>
                 <div class="chapter-epigraph">
                     “所有模型都是错的，但有些是有用的。”
                     <span class="source"><i class="fa-regular fa-user"></i> 乔治·博克斯 (George Box) — 统计学巨匠</span>
@@ -595,15 +603,10 @@
         </section>
 
         <!-- ===== CHAPTER 1 ===== -->
-        <section id="ch1" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">📊</span> Chapter 1</span>
-            <h2 class="chapter-title">The <span class="highlight">Lie</span> of Averages</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch1" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">📊</span> Chapter 1</span>
+                <h2 class="chapter-title">The <span class="highlight">Lie</span> of Averages</h2>
                 <div class="chapter-epigraph">
                     “The average hides the pain of every individual.”
                     <span class="source"><i class="fa-regular fa-user"></i> John Tukey — Data Visualization Pioneer</span>
@@ -648,8 +651,9 @@ median(latency)    # ~80ms  — this is what most people actually experience
 # Boxplot — outliers laid bare
 boxplot(latency, col = "tomato", main = "API Latency: The Truth Hidden in the Boxplot")</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">📊</span> 第一章</span>
+                <h2 class="chapter-title">平均值的<span class="highlight">谎言</span></h2>
                 <div class="chapter-epigraph">
                     “平均数掩盖了所有个体的痛苦。”
                     <span class="source"><i class="fa-regular fa-user"></i> 约翰·图基 (John Tukey) — 数据可视化先驱</span>
@@ -697,15 +701,10 @@ boxplot(latency, col = "tomato", main = "API Latency: 真相藏在箱线图里")
         </section>
 
         <!-- ===== CHAPTER 2 ===== -->
-        <section id="ch2" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🌊</span> Chapter 2</span>
-            <h2 class="chapter-title">The <span class="highlight">Secret Language</span> of Traffic</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch2" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🌊</span> Chapter 2</span>
+                <h2 class="chapter-title">The <span class="highlight">Secret Language</span> of Traffic</h2>
                 <div class="chapter-epigraph">
                     “Randomness is not chaos, but another kind of order.”
                     <span class="source"><i class="fa-regular fa-user"></i> Jacob Bernoulli — Probability Pioneer</span>
@@ -763,8 +762,9 @@ barplot(qps_per_second, col = "darkseagreen",
         main = "Real-world QPS Fluctuation", 
         xlab = "Time (seconds)", ylab = "Requests")</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🌊</span> 第二章</span>
+                <h2 class="chapter-title">流量的<span class="highlight">秘密语言</span></h2>
                 <div class="chapter-epigraph">
                     “随机不是混乱，而是另一种秩序。”
                     <span class="source"><i class="fa-regular fa-user"></i> 雅各布·伯努利 (Jacob Bernoulli)</span>
@@ -824,16 +824,11 @@ barplot(qps_per_second, col = "darkseagreen",
             </div>
         </section>
 
-        <!-- ===== CHAPTER 3 ===== -->
-        <section id="ch3" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🔭</span> Chapter 3</span>
-            <h2 class="chapter-title">Seeing the <span class="highlight">Whole</span> from the Part</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <!-- ===== CHAPTER 3 - WITH YOUR IMAGE ===== -->
+        <section id="ch3" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🔭</span> Chapter 3</span>
+                <h2 class="chapter-title">Seeing the <span class="highlight">Whole</span> from the Part</h2>
                 <div class="chapter-epigraph">
                     “The sample is the only bridge to the population.”
                     <span class="source"><i class="fa-regular fa-user"></i> William Gosset — Inventor of the t-test</span>
@@ -846,12 +841,18 @@ barplot(qps_per_second, col = "darkseagreen",
                     <span class="character-name">Su Ran <span class="title-tag">· Mentor</span></span>
                     <p>"This is where we invoke statistics' crown jewel — <span class="narrative-highlight">the Central Limit Theorem (CLT)</span>. It's the mathematical guarantee that lets you infer the whole world from a small sample."</p>
                 </div>
+
+                <!-- YOUR CLT IMAGE - Place "central_limit_theorem.png" in the same folder -->
                 <div class="figure-container">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23f5f0e8'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23b8860b' font-size='20' font-weight='bold' font-family='sans-serif'%3ECentral Limit Theorem · The Most Beautiful Theorem in the Universe%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3EPopulation · Any Shape%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23b85c4a' font-size='13'%3E(Right-Skewed)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23b85c4a' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23b85c4a' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3ERepeated Sampling%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%236b5f50' font-size='12'%3ESample Size n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%236b5f50' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3EDistribution of Sample Means%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%237a5a4b' font-size='13'%3E(Approximately Normal)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%236b5f50' font-size='13'%3ENo matter the population shape, sample means converge to a normal distribution!%3C/text%3E%3C/svg%3E"
-                         alt="Central Limit Theorem illustration" />
-                    <div class="fig-caption">Figure: The Central Limit Theorem — <span class="narrative-highlight">No matter how skewed the population, the sample means will always approximate a normal distribution</span></div>
+                    <img src="central_limit_theorem.png" alt="Central Limit Theorem illustration" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                    <div class="fig-caption">Figure: The Central Limit Theorem — <span class="narrative-highlight">No matter the population shape, the distribution of sample means always approximates a normal distribution</span></div>
                 </div>
+
                 <h3>📌 Lesson 3: Seeing the Whole with Samples <span class="lesson-tag">Core Insight</span></h3>
+                <p>Su Ran wrote three letters on the whiteboard: <span class="narrative-highlight">CLT</span>.</p>
+                <p>"The Central Limit Theorem says: <span class="narrative-highlight">Regardless of the original distribution's shape</span> — even for highly skewed API response times — as long as each sample size \(n \ge 30\), <span class="narrative-highlight">the distribution of all sample means will approximate a normal distribution</span>."</p>
+                <p>"This means," she looked into Lin Chuan's eyes, "<span class="narrative-highlight">the mean you calculate from 100 log entries is mathematically guaranteed.</span> Not only can you estimate the population, but you can also calculate the margin of error — that's the <span class="narrative-highlight">confidence interval</span>."</p>
+
                 <div class="math-block">
                     <span class="math-label">📐 Standard Error · Your Margin of Error</span>
                     \[
@@ -859,6 +860,7 @@ barplot(qps_per_second, col = "darkseagreen",
                     \]
                     <div class="math-fallback">SE = s / √n</div>
                 </div>
+
                 <div class="code-header">💻 R in Action · Lightweight Sampling + Confidence Intervals</div>
                 <pre><code># Million-level population
 population_latency <- c(rnorm(1000000, mean = 120, sd = 15))
@@ -878,10 +880,18 @@ ci_lower <- sample_mean - margin_error
 ci_upper <- sample_mean + margin_error
 
 cat(sprintf("Sample mean: %.2f ms\n", sample_mean))
-cat(sprintf("95%% Confidence Interval: [%.2f, %.2f] ms\n", ci_lower, ci_upper))</code></pre>
-            </div>
+cat(sprintf("95%% Confidence Interval: [%.2f, %.2f] ms\n", ci_lower, ci_upper))
+# The true mean of 120ms is perfectly captured within the interval</code></pre>
 
+                <div class="story-block">
+                    <span class="character-name">Lin Chuan <span class="title-tag">· Transformed</span></span>
+                    <p>He stared at the output in silence for a long time. <span class="narrative-highlight">His three years of anxiety — worrying that samples weren't reliable, that he had to compute everything — had all been because he didn't know this theorem.</span></p>
+                    <p>"<span class="narrative-highlight">Knowledge really is the best performance optimization.</span>" he said softly.</p>
+                </div>
+            </div>
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🔭</span> 第三章</span>
+                <h2 class="chapter-title">从局部<span class="highlight">看见整体</span></h2>
                 <div class="chapter-epigraph">
                     “样本是通往总体的唯一桥梁。”
                     <span class="source"><i class="fa-regular fa-user"></i> 威廉·戈塞特 (William Gosset) — t检验发明者</span>
@@ -894,11 +904,13 @@ cat(sprintf("95%% Confidence Interval: [%.2f, %.2f] ms\n", ci_lower, ci_upper))<
                     <span class="character-name">苏然 <span class="title-tag">· 导师</span></span>
                     <p>“这就要请出统计学的镇山之宝——<span class="narrative-highlight">中央极限定理 (CLT)</span>。它是你能用少量样本推断全世界的数学担保。”</p>
                 </div>
+
+                <!-- Chinese version with your image -->
                 <div class="figure-container">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23f5f0e8'/%3E%3Ctext x='400' y='60' text-anchor='middle' fill='%23b8860b' font-size='20' font-weight='bold' font-family='sans-serif'%3E中央极限定理 · 宇宙最美的定理%3C/text%3E%3Crect x='50' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='150' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E总体 · 任何形状%3C/text%3E%3Ctext x='150' y='150' text-anchor='middle' fill='%23b85c4a' font-size='13'%3E(右偏态)%3C/text%3E%3Cpath d='M90 280 L110 260 L130 240 L150 200 L170 220 L190 250 L210 270 L230 290 L250 310' stroke='%23b85c4a' stroke-width='3' fill='none'/%3E%3Cpath d='M100 300 L130 280 L160 240 L190 210 L220 230 L250 260' stroke='%23b85c4a' stroke-width='2' fill='none' opacity='0.4'/%3E%3Ctext x='400' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E重复抽样%3C/text%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%236b5f50' font-size='12'%3E样本容量 n ≥ 30%3C/text%3E%3Cpath d='M280 200 L320 180 L360 160 L400 190 L440 170 L480 150 L520 180' stroke='%236b5f50' stroke-width='2' fill='none' stroke-dasharray='6,4'/%3E%3Crect x='550' y='100' width='200' height='200' rx='10' fill='%23fcf9f5' stroke='%23d6cec4' stroke-width='1'/%3E%3Ctext x='650' y='130' text-anchor='middle' fill='%236b5f50' font-size='14'%3E样本均值的分布%3C/text%3E%3Ctext x='650' y='150' text-anchor='middle' fill='%237a5a4b' font-size='13'%3E(近似正态)%3C/text%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='3' fill='none'/%3E%3Cpath d='M570 260 Q600 220 630 190 Q660 170 690 190 Q720 220 750 260' stroke='%237a5a4b' stroke-width='2' fill='none' opacity='0.3' transform='translate(0,30)'/%3E%3Ctext x='650' y='340' text-anchor='middle' fill='%236b5f50' font-size='13'%3E无论总体是什么形状，样本均值都会收敛到正态分布！%3C/text%3E%3C/svg%3E"
-                         alt="中央极限定理示意图" />
-                    <div class="fig-caption">图：中央极限定理 —— <span class="narrative-highlight">无论总体多么扭曲，样本均值总会趋于正态</span></div>
+                    <img src="central_limit_theorem.png" alt="中央极限定理示意图" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+                    <div class="fig-caption">图：中央极限定理 —— <span class="narrative-highlight">无论总体是什么形状，样本均值的分布总会趋近正态</span></div>
                 </div>
+
                 <h3>📌 第三课：用样本看见全貌 <span class="lesson-tag">核心洞察</span></h3>
                 <div class="math-block">
                     <span class="math-label">📐 标准误 · 你的误差范围</span>
@@ -931,15 +943,10 @@ cat(sprintf("95%% 置信区间: [%.2f, %.2f] ms\n", ci_lower, ci_upper))</code><
         </section>
 
         <!-- ===== CHAPTER 4 ===== -->
-        <section id="ch4" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🧪</span> Chapter 4</span>
-            <h2 class="chapter-title">The <span class="highlight">Trap</span> of Experiments</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch4" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🧪</span> Chapter 4</span>
+                <h2 class="chapter-title">The <span class="highlight">Trap</span> of Experiments</h2>
                 <div class="chapter-epigraph">
                     “Significance is not proof of truth, but an alarm of signal.”
                     <span class="source"><i class="fa-regular fa-user"></i> Ronald Fisher — Father of Modern Statistics</span>
@@ -971,8 +978,9 @@ treatment <- rnorm(500, mean = 0.122, sd = 0.02)
 t.test(treatment, control, alternative = "two.sided")
 # p = 0.38 — not significant! The improvement is just random fluctuation</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🧪</span> 第四章</span>
+                <h2 class="chapter-title">实验的<span class="highlight">陷阱</span></h2>
                 <div class="chapter-epigraph">
                     “显著性不是真相的证明，而是信号的警报。”
                     <span class="source"><i class="fa-regular fa-user"></i> 罗纳德·费希尔 (Ronald Fisher)</span>
@@ -1007,15 +1015,10 @@ t.test(treatment, control, alternative = "two.sided")
         </section>
 
         <!-- ===== CHAPTER 5 ===== -->
-        <section id="ch5" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">⚔️</span> Chapter 5</span>
-            <h2 class="chapter-title">The <span class="highlight">Battle</span> of Many</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch5" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">⚔️</span> Chapter 5</span>
+                <h2 class="chapter-title">The <span class="highlight">Battle</span> of Many</h2>
                 <div class="chapter-epigraph">
                     “When comparing multiple groups, you need one sword, not three knives.”
                     <span class="source"><i class="fa-regular fa-user"></i> John Tukey — Inventor of Tukey HSD</span>
@@ -1052,8 +1055,9 @@ summary(anova_res)  # p < 0.001 — the three groups are indeed different
 
 TukeyHSD(anova_res)  # C-A and C-B are highly significant (p < 0.001)</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">⚔️</span> 第五章</span>
+                <h2 class="chapter-title">多人的<span class="highlight">对决</span></h2>
                 <div class="chapter-epigraph">
                     “比较多个群体时，你需要一把剑，而不是三把小刀。”
                     <span class="source"><i class="fa-regular fa-user"></i> 约翰·图基 (John Tukey)</span>
@@ -1093,15 +1097,10 @@ TukeyHSD(anova_res)  # C-A 和 C-B 都极显著 (p < 0.001)</code></pre>
         </section>
 
         <!-- ===== CHAPTER 6 ===== -->
-        <section id="ch6" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🌀</span> Chapter 6</span>
-            <h2 class="chapter-title">When Two Worlds <span class="highlight">Collide</span></h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch6" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🌀</span> Chapter 6</span>
+                <h2 class="chapter-title">When Two Worlds <span class="highlight">Collide</span></h2>
                 <div class="chapter-epigraph">
                     “Interaction effects are the truth of the world — nothing exists in isolation.”
                     <span class="source"><i class="fa-regular fa-user"></i> Andrew Gelman — Contemporary Statistician</span>
@@ -1137,8 +1136,9 @@ interaction.plot(df$Strategy, df$DB, df$Latency,
                  col = c("coral", "royalblue"),
                  main = "Interaction Between Strategy and Database")</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🌀</span> 第六章</span>
+                <h2 class="chapter-title">当两个世界<span class="highlight">碰撞</span></h2>
                 <div class="chapter-epigraph">
                     “交互效应是世界的真相——没有事物是孤立的。”
                     <span class="source"><i class="fa-regular fa-user"></i> 安德鲁·格尔曼 (Andrew Gelman)</span>
@@ -1177,15 +1177,10 @@ interaction.plot(df$Strategy, df$DB, df$Latency,
         </section>
 
         <!-- ===== CHAPTER 7 ===== -->
-        <section id="ch7" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🔮</span> Chapter 7</span>
-            <h2 class="chapter-title">The <span class="highlight">Power</span> to See the Future</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch7" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🔮</span> Chapter 7</span>
+                <h2 class="chapter-title">The <span class="highlight">Power</span> to See the Future</h2>
                 <div class="chapter-epigraph">
                     “Regression is not prophecy, but seeing the trend.”
                     <span class="source"><i class="fa-regular fa-user"></i> Francis Galton — Regression Analysis Pioneer</span>
@@ -1224,8 +1219,9 @@ new_data <- data.frame(requests = 8500)
 predict(model, newdata = new_data, interval = "prediction")
 # 95% prediction interval upper bound: 88.2%</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🔮</span> 第七章</span>
+                <h2 class="chapter-title">预见未来的<span class="highlight">能力</span></h2>
                 <div class="chapter-epigraph">
                     “回归不是预言，而是看清趋势。”
                     <span class="source"><i class="fa-regular fa-user"></i> 弗朗西斯·高尔顿 (Francis Galton)</span>
@@ -1267,15 +1263,10 @@ predict(model, newdata = new_data, interval = "prediction")
         </section>
 
         <!-- ===== CHAPTER 8 ===== -->
-        <section id="ch8" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">🕳️</span> Chapter 8</span>
-            <h2 class="chapter-title">The <span class="highlight">Betrayal</span> of Accomplices</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch8" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🕳️</span> Chapter 8</span>
+                <h2 class="chapter-title">The <span class="highlight">Betrayal</span> of Accomplices</h2>
                 <div class="chapter-epigraph">
                     “Multicollinearity is the betrayal of the model — you think you're strengthening, but you're weakening.”
                     <span class="source"><i class="fa-regular fa-user"></i> David Kleinbaum — Epidemiologist and Statistician</span>
@@ -1316,8 +1307,9 @@ summary(bad_model)  # req's p-value becomes insignificant
 library(car)
 vif(bad_model)  # req and threads have VIF > 40!</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🕳️</span> 第八章</span>
+                <h2 class="chapter-title">共犯的<span class="highlight">背叛</span></h2>
                 <div class="chapter-epigraph">
                     “多重共线性是模型的背叛——你以为在增强，其实在削弱。”
                     <span class="source"><i class="fa-regular fa-user"></i> 戴维·克莱因鲍姆 (David Kleinbaum)</span>
@@ -1361,15 +1353,10 @@ vif(bad_model)  # req 和 threads 的 VIF > 40！</code></pre>
         </section>
 
         <!-- ===== CHAPTER 9 ===== -->
-        <section id="ch9" class="chapter-card lang-en-active">
-            <span class="chapter-meta"><span class="chapter-icon">💀</span> Chapter 9</span>
-            <h2 class="chapter-title">The <span class="highlight">Interrogation</span> of the Soul</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="ch9" class="chapter-card">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">💀</span> Chapter 9</span>
+                <h2 class="chapter-title">The <span class="highlight">Interrogation</span> of the Soul</h2>
                 <div class="chapter-epigraph">
                     “The model is not the end of truth, but the beginning of questioning.”
                     <span class="source"><i class="fa-regular fa-user"></i> George Box — Statistician</span>
@@ -1397,8 +1384,9 @@ vif(bad_model)  # req 和 threads 的 VIF > 40！</code></pre>
 par(mfrow = c(2, 2))
 plot(model)</code></pre>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">💀</span> 第九章</span>
+                <h2 class="chapter-title">灵魂的<span class="highlight">拷问</span></h2>
                 <div class="chapter-epigraph">
                     “模型不是真相的终点，而是提问的起点。”
                     <span class="source"><i class="fa-regular fa-user"></i> 乔治·博克斯 (George Box)</span>
@@ -1429,15 +1417,10 @@ plot(model)</code></pre>
         </section>
 
         <!-- ===== EPILOGUE ===== -->
-        <section id="epilogue" class="chapter-card lang-en-active" style="background: #f8f4ee; border-color: #d6cec4;">
-            <span class="chapter-meta"><span class="chapter-icon">🌅</span> Epilogue</span>
-            <h2 class="chapter-title">A <span class="highlight">New</span> Dawn</h2>
-            <div class="chapter-lang-toggle">
-                <button class="active" data-lang="en" onclick="toggleChapterLang(this)">English <span class="badge">🇬🇧</span></button>
-                <button data-lang="zh" onclick="toggleChapterLang(this)">中文 <span class="badge">🇨🇳</span></button>
-            </div>
-
+        <section id="epilogue" class="chapter-card" style="background: #f8f4ee; border-color: #d6cec4;">
             <div class="lang-en">
+                <span class="chapter-meta"><span class="chapter-icon">🌅</span> Epilogue</span>
+                <h2 class="chapter-title">A <span class="highlight">New</span> Dawn</h2>
                 <div class="story-block">
                     <span class="character-name">Lin Chuan <span class="title-tag">· Transformed Architect</span></span>
                     <p>Three weeks later, early morning. Lin Chuan stood at the office window, overlooking the city's morning light. His phone displayed: Payment gateway P99 latency stabilized under 200ms, user complaint rate down 76%.</p>
@@ -1467,8 +1450,9 @@ plot(model)</code></pre>
                     ✦ The End · But Learning Never Ends ✦
                 </p>
             </div>
-
             <div class="lang-zh">
+                <span class="chapter-meta"><span class="chapter-icon">🌅</span> 尾声</span>
+                <h2 class="chapter-title">新的<span class="highlight">黎明</span></h2>
                 <div class="story-block">
                     <span class="character-name">林川 <span class="title-tag">· 蜕变的架构师</span></span>
                     <p>三周后的清晨。林川站在办公室窗前，俯瞰城市的晨光。手机显示：支付网关 P99 延迟稳定在 200ms 以内，用户投诉率下降了 76%。</p>
@@ -1529,42 +1513,57 @@ plot(model)</code></pre>
     </div>
 
     <script>
-        // Chapter language toggle
-        function toggleChapterLang(btn) {
-            const parentCard = btn.closest('.chapter-card');
-            const lang = btn.dataset.lang;
+        // ===== LANGUAGE TOGGLE =====
+        (function() {
+            const html = document.documentElement;
+            const tabs = document.querySelectorAll('.lang-tabs button');
 
-            // Update button states
-            const buttons = parentCard.querySelectorAll('.chapter-lang-toggle button');
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            function setLanguage(lang) {
+                html.setAttribute('data-lang', lang);
+                tabs.forEach(b => b.classList.remove('active'));
+                document.querySelector(`.lang-tabs button[data-lang="${lang}"]`).classList.add('active');
 
-            // Update card class
-            parentCard.classList.remove('lang-en-active', 'lang-zh-active');
-            parentCard.classList.add('lang-' + lang + '-active');
+                const currentId = chapters[currentChapterIndex]?.id;
+                if (currentId) {
+                    const ch = chapters.find(c => c.id === currentId);
+                    if (ch) {
+                        const label = lang === 'zh' ? ch.label_zh : ch.label_en;
+                        currentChapterName.textContent = label;
+                    }
+                }
 
-            // Update chapter indicator in reader bar if this is the active chapter
-            const isActive = parentCard.classList.contains('active-reading');
-            if (isActive) {
-                const chapterName = parentCard.querySelector('.chapter-meta')?.textContent?.trim() || '';
-                document.getElementById('currentChapterName').textContent = chapterName;
+                if (isPlaying || isPaused) {
+                    loadChapter(currentChapterIndex);
+                    if (isPlaying) {
+                        stopReading();
+                        setTimeout(() => startReading(), 200);
+                    }
+                }
             }
-        }
 
-        // Reader functionality
+            tabs.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setLanguage(this.dataset.lang);
+                });
+            });
+
+            window.setLanguage = setLanguage;
+        })();
+
+        // ===== READER FUNCTIONALITY =====
         (function() {
             const chapters = [
-                { id: 'prologue', label: 'Prologue' },
-                { id: 'ch1', label: 'Chapter 1' },
-                { id: 'ch2', label: 'Chapter 2' },
-                { id: 'ch3', label: 'Chapter 3' },
-                { id: 'ch4', label: 'Chapter 4' },
-                { id: 'ch5', label: 'Chapter 5' },
-                { id: 'ch6', label: 'Chapter 6' },
-                { id: 'ch7', label: 'Chapter 7' },
-                { id: 'ch8', label: 'Chapter 8' },
-                { id: 'ch9', label: 'Chapter 9' },
-                { id: 'epilogue', label: 'Epilogue' }
+                { id: 'prologue', label_en: 'Prologue', label_zh: '楔子' },
+                { id: 'ch1', label_en: 'Chapter 1', label_zh: '第一章' },
+                { id: 'ch2', label_en: 'Chapter 2', label_zh: '第二章' },
+                { id: 'ch3', label_en: 'Chapter 3', label_zh: '第三章' },
+                { id: 'ch4', label_en: 'Chapter 4', label_zh: '第四章' },
+                { id: 'ch5', label_en: 'Chapter 5', label_zh: '第五章' },
+                { id: 'ch6', label_en: 'Chapter 6', label_zh: '第六章' },
+                { id: 'ch7', label_en: 'Chapter 7', label_zh: '第七章' },
+                { id: 'ch8', label_en: 'Chapter 8', label_zh: '第八章' },
+                { id: 'ch9', label_en: 'Chapter 9', label_zh: '第九章' },
+                { id: 'epilogue', label_en: 'Epilogue', label_zh: '尾声' }
             ];
 
             const playBtn = document.getElementById('playBtn');
@@ -1585,20 +1584,16 @@ plot(model)</code></pre>
             let totalChunks = 0;
             let isPaused = false;
 
-            function getActiveLanguage(cardElement) {
-                if (cardElement.classList.contains('lang-zh-active')) return 'zh';
-                return 'en';
+            function getCurrentLang() {
+                return document.documentElement.getAttribute('data-lang') || 'en';
             }
 
             function extractTextFromChapter(cardElement) {
-                const lang = getActiveLanguage(cardElement);
+                const lang = getCurrentLang();
                 const clone = cardElement.cloneNode(true);
-                // Keep only the active language version
+
                 const otherLang = lang === 'zh' ? 'lang-en' : 'lang-zh';
                 clone.querySelectorAll('.' + otherLang).forEach(el => el.remove());
-                clone.querySelectorAll('.lang-zh, .lang-en').forEach(el => {
-                    if (!el.classList.contains('lang-' + lang)) el.remove();
-                });
 
                 const removeSelectors = [
                     '.code-header', 'pre', '.blackboard', 'table',
@@ -1606,13 +1601,13 @@ plot(model)</code></pre>
                     'script', 'style', '.MathJax', '.mathjax',
                     'mjx-container', '.math', '.katex', '.latex',
                     '.math-block', '.math-fallback', '.figure-container',
-                    '.fa-solid', '.fa-regular', '.fa-brands', 'i', 'svg',
-                    '.chapter-lang-toggle'
+                    '.fa-solid', '.fa-regular', '.fa-brands', 'i', 'svg'
                 ];
                 removeSelectors.forEach(sel => {
                     clone.querySelectorAll(sel).forEach(el => el.remove());
                 });
                 clone.querySelectorAll('.concept-box .math-block').forEach(el => el.remove());
+
                 let rawText = clone.textContent || '';
                 rawText = rawText.replace(/\s+/g, ' ').trim();
                 const sentences = rawText.split(/[。！？；\.!\?;]+/).filter(s => s.trim().length > 0);
@@ -1624,9 +1619,8 @@ plot(model)</code></pre>
                 const cardElement = document.getElementById(cardId);
                 if (!cardElement) return false;
 
-                const lang = getActiveLanguage(cardElement);
-                const label = cardElement.querySelector('.chapter-meta')?.textContent?.trim() || chapters[index].label;
-                currentChapterName.textContent = label;
+                const lang = getCurrentLang();
+                currentChapterName.textContent = chapters[index]['label_' + lang];
 
                 textChunks = extractTextFromChapter(cardElement);
                 totalChunks = textChunks.length;
@@ -1667,8 +1661,7 @@ plot(model)</code></pre>
 
                 if (currentUtterance) speechSynth.cancel();
 
-                const cardElement = document.getElementById(chapters[currentChapterIndex].id);
-                const lang = getActiveLanguage(cardElement);
+                const lang = getCurrentLang();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang === 'zh' ? 'zh-CN' : 'en-US';
                 utterance.rate = parseFloat(speedSelect.value) || 1.0;
@@ -1811,13 +1804,17 @@ plot(model)</code></pre>
                 });
             }
 
+            window.goToChapter = goToChapter;
+            window.startReading = startReading;
+            window.stopReading = stopReading;
+            window.togglePlay = togglePlay;
+            window.loadChapter = loadChapter;
+
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 initReader();
             } else {
                 document.addEventListener('DOMContentLoaded', initReader);
             }
-
-            window.__reader = { goToChapter, startReading, stopReading, togglePlay, loadChapter };
         })();
     </script>
 </body>
